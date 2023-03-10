@@ -9,8 +9,8 @@
         public int status { get; set; }
 
         public virtual Role Roles { get; set; }
-        public virtual IEnumerable<Bill> bill { get; set; }
-        public virtual IEnumerable<Cart> Carts { get; set; }
+        public virtual List<Bill> bill { get; set; }
+        public virtual Cart Carts { get; set; }
 
     }
 }

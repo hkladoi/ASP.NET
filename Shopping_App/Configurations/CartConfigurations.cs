@@ -11,7 +11,6 @@ namespace Shopping_App.Configurations
             builder.ToTable("giohang");
             builder.HasKey(c => c.UserID);
             builder.Property(c => c.Description).HasColumnType("nvarchar(MAX)").IsRequired();
-            builder.HasOne(x => x.User).WithMany(y => y.Carts).HasForeignKey(x => x.UserID);
         }
     }
 }

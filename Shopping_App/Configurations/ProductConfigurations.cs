@@ -15,6 +15,8 @@ namespace Shopping_App.Configurations
             builder.Property(c => c.AvailableQuantity).HasColumnType("int").IsRequired();
             builder.Property(c => c.Supplier).HasColumnType("nvarchar(1000)").IsRequired();
             builder.Property(c => c.Description).HasColumnType("nvarchar(1000)").IsRequired();
+            //builder.Property(c => c.Description).IsUnicode().HasMaxLength(1000).IsFixedLength();
+            //2 cái des trên giống nhau
             builder.Property(c => c.Status).HasColumnType("int").IsRequired();
 
         }

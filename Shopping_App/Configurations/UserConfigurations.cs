@@ -13,7 +13,7 @@ namespace Shopping_App.Configurations
             builder.Property(c => c.UserName).HasColumnType("nvarchar(1000)").IsRequired();
             builder.Property(c => c.Password).HasColumnType("nvarchar(1000)").IsRequired();
             builder.Property(c => c.status).HasColumnType("int").IsRequired();
-            builder.HasOne(x => x.Roles).WithMany(y => y.Users).HasForeignKey(x=>x.role);
+            builder.HasOne(x => x.Roles).WithMany(y => y.Users).HasForeignKey(x => x.role);
         }
     }
 }
