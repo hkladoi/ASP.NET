@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1_ASP.NET_6.0", "1_ASP.NET_6.0.csproj", "{01C6043B-748F-4121-96F4-8F593D7D57E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "1_ASP.NET_6.0", "1_ASP.NET_6.0.csproj", "{01C6043B-748F-4121-96F4-8F593D7D57E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopping_App", "..\Shopping_App\Shopping_App.csproj", "{3D657B1C-6590-41B9-B615-C4EB821B1024}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shopping_App", "..\Shopping_App\Shopping_App.csproj", "{3D657B1C-6590-41B9-B615-C4EB821B1024}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mixi", "..\Mixi\Mixi.csproj", "{3E03D4AB-21D4-42E2-89C6-E0EC9B141734}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{3D657B1C-6590-41B9-B615-C4EB821B1024}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D657B1C-6590-41B9-B615-C4EB821B1024}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D657B1C-6590-41B9-B615-C4EB821B1024}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E03D4AB-21D4-42E2-89C6-E0EC9B141734}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E03D4AB-21D4-42E2-89C6-E0EC9B141734}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E03D4AB-21D4-42E2-89C6-E0EC9B141734}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E03D4AB-21D4-42E2-89C6-E0EC9B141734}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

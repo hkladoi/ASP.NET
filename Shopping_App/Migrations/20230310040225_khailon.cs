@@ -33,7 +33,7 @@ namespace Shopping_App.Migrations
                     AvailableQuantity = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
                     Supplier = table.Column<string>(type: "nvarchar(1000)", nullable: false),
-                    Description = table.Column<string>(type: "nchar(10000)", fixedLength: true, maxLength: 10000, nullable: false)
+                    Description = table.Column<string>(type: "nchar(1000)", fixedLength: true, maxLength: 1000, nullable: false)
                 },
                 constraints: table =>
                 {
