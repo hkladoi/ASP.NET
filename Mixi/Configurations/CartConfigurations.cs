@@ -8,7 +8,8 @@ namespace Mixi.Configurations
     {
         public void Configure(EntityTypeBuilder<Cart> builder)
         {
-            throw new NotImplementedException();
+            builder.HasKey(c => c.UserID);
+            builder.Property(c => c.Description).HasColumnType("nvarchar(MAX)").IsRequired();
         }
     }
 }

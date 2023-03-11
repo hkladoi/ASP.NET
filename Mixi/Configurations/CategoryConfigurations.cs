@@ -8,7 +8,9 @@ namespace Mixi.Configurations
     {
         public void Configure(EntityTypeBuilder<Category> builder)
         {
-            throw new NotImplementedException();
+            builder.HasKey(c => c.CategoryID);
+            builder.Property(c => c.Name).HasColumnType("nvarchar(100)").IsRequired();
+            builder.Property(c => c.Status).HasColumnType("int").IsRequired();
         }
     }
 }

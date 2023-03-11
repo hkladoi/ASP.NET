@@ -8,7 +8,11 @@ namespace Mixi.Configurations
     {
         public void Configure(EntityTypeBuilder<BillDetail> builder)
         {
-            throw new NotImplementedException();
+            builder.HasKey(c => c.ID);
+            builder.Property(c => c.Quantity).HasColumnType("int").IsRequired();
+            builder.Property(c => c.Price).HasColumnType("decimal").IsRequired();
+            builder.HasOne(x => x.bill).WithMany(y => y.BillDetails).HasForeignKey(c => c.BillID);
+            builder.HasOne(x => x.product).WithMany(y => y.BillDetails).HasForeignKey(c => c.ProductID);
         }
     }
 }

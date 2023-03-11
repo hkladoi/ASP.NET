@@ -8,7 +8,10 @@ namespace Mixi.Configurations
     {
         public void Configure(EntityTypeBuilder<CartDetail> builder)
         {
-            throw new NotImplementedException();
+            builder.HasKey(x => x.CartID);
+            builder.Property(c => c.Quantity).HasColumnType("int").IsRequired();
+            builder.HasOne(x => x.Cart).WithMany(y => y.cartdetail).HasForeignKey(x => x.UserID);
+            builder.HasOne(c => c.Product).WithMany(d => d.CartDetails).HasForeignKey(c => c.ProductID);
         }
     }
 }
