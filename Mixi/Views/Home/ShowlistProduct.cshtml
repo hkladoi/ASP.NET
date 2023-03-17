@@ -16,6 +16,9 @@
                 @Html.DisplayNameFor(model => model.ProductID)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.ImageID)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.ColorID)
             </th>
             <th>
@@ -56,12 +59,15 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.ProductID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ImageID)
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Color.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ColorID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SizeID)
+                @Html.DisplayFor(modelItem => item.Size.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CategoryID)

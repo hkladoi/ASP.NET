@@ -9,7 +9,7 @@ namespace Mixi.Configurations
         public void Configure(EntityTypeBuilder<Cart> builder)
         {
             builder.HasKey(c => c.UserID);
-            builder.Property(c => c.Description).HasColumnType("nvarchar(MAX)").IsRequired();
+            builder.Property(c => c.Description).HasColumnType("nvarchar(MAX)").IsRequired(false);
         }
     }
 }

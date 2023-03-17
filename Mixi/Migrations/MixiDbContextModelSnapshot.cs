@@ -40,7 +40,6 @@ namespace Mixi.Migrations
                         .HasColumnType("Datetime");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(MAX)");
 
                     b.Property<string>("Name")
@@ -97,7 +96,6 @@ namespace Mixi.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(MAX)");
 
                     b.HasKey("UserID");
@@ -175,16 +173,23 @@ namespace Mixi.Migrations
                         .IsRequired()
                         .HasColumnType("image");
 
+                    b.Property<byte[]>("LinkImage1")
+                        .HasColumnType("image");
+
+                    b.Property<byte[]>("LinkImage2")
+                        .HasColumnType("image");
+
+                    b.Property<byte[]>("LinkImage3")
+                        .HasColumnType("image");
+
+                    b.Property<byte[]>("LinkImage4")
+                        .HasColumnType("image");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<Guid>("ProductID")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("ImageID");
-
-                    b.HasIndex("ProductID");
 
                     b.ToTable("Images");
                 });
@@ -205,8 +210,10 @@ namespace Mixi.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(MAX)");
+
+                    b.Property<Guid>("ImageID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -237,6 +244,8 @@ namespace Mixi.Migrations
                     b.HasIndex("CategoryID");
 
                     b.HasIndex("ColorID");
+
+                    b.HasIndex("ImageID");
 
                     b.HasIndex("SizeID");
 
@@ -290,7 +299,6 @@ namespace Mixi.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(MAX)");
 
                     b.Property<string>("Email")
@@ -386,17 +394,6 @@ namespace Mixi.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Mixi.Models.Image", b =>
-                {
-                    b.HasOne("Mixi.Models.Product", "Product")
-                        .WithMany("Images")
-                        .HasForeignKey("ProductID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("Mixi.Models.Product", b =>
                 {
                     b.HasOne("Mixi.Models.Category", "Category")
@@ -411,6 +408,12 @@ namespace Mixi.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Mixi.Models.Image", "Images")
+                        .WithMany("Products")
+                        .HasForeignKey("ImageID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Mixi.Models.Size", "Size")
                         .WithMany("Products")
                         .HasForeignKey("SizeID")
@@ -420,6 +423,8 @@ namespace Mixi.Migrations
                     b.Navigation("Category");
 
                     b.Navigation("Color");
+
+                    b.Navigation("Images");
 
                     b.Navigation("Size");
                 });
@@ -455,13 +460,16 @@ namespace Mixi.Migrations
                     b.Navigation("Products");
                 });
 
+            modelBuilder.Entity("Mixi.Models.Image", b =>
+                {
+                    b.Navigation("Products");
+                });
+
             modelBuilder.Entity("Mixi.Models.Product", b =>
                 {
                     b.Navigation("BillDetails");
 
                     b.Navigation("CartDetails");
-
-                    b.Navigation("Images");
                 });
 
             modelBuilder.Entity("Mixi.Models.Role", b =>

@@ -11,7 +11,7 @@ namespace Mixi.Configurations
             builder.Property(c => c.FirstName).HasColumnType("nvarchar(100)").IsRequired();
             builder.Property(c => c.LastName).HasColumnType("nvarchar(100)").IsRequired();
             builder.Property(c => c.PhoneNumber).HasColumnType("nvarchar(10)").IsRequired();
-            builder.Property(c => c.Address).HasColumnType("nvarchar(MAX)");
+            builder.Property(c => c.Address).HasColumnType("nvarchar(MAX)").IsRequired(false);
             builder.Property(c => c.Password).HasColumnType("nvarchar(100)").IsRequired();
             builder.Property(c => c.Email).HasColumnType("nvarchar(100)").IsRequired();
             builder.Property(c => c.Account).HasColumnType("nvarchar(100)").IsRequired();

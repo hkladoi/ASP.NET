@@ -6,6 +6,7 @@
         public Guid ColorID { get; set; }
         public Guid SizeID { get; set; }
         public Guid CategoryID { get; set; }
+        public Guid ImageID { get; set; }
         public string Name { get; set; }
         public string ProductCode { get; set; }
         public decimal Price { get; set; }
@@ -19,7 +20,7 @@
         public virtual Size Size { get; set; }
         public virtual Color Color { get; set; }
         public virtual Category Category { get; set; }
-        public virtual List<Image> Images { get; set; }
+        public virtual Image Images { get; set; }
 
     }
 }
