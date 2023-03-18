@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Mixi.Models.Image>
+
+@{
+    ViewData["Title"] = "ShowlistImage";
+    ViewBag.Title = "ShowlistImage";
+    ViewBag.ShowBanner = false;
+}
+
+<h1>Hình ảnh</h1>
+
+<p style="font-size:20px">
+    <a asp-action="Create">Create New</a>
+    <a asp-controller="Home" asp-action="ShowlistProduct">Back to list</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LinkImage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LinkImage1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LinkImage2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LinkImage3)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LinkImage4)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImageID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LinkImage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LinkImage1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LinkImage2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LinkImage3)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LinkImage4)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

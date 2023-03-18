@@ -12,7 +12,7 @@ using Mixi.Models;
 namespace Mixi.Migrations
 {
     [DbContext(typeof(MixiDbContext))]
-    [Migration("20230315155524_hkladoi")]
+    [Migration("20230317162623_hkladoi")]
     partial class hkladoi
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

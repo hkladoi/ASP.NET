@@ -1,0 +1,61 @@
+﻿@model Mixi.Models.Image
+
+@{
+    ViewData["Title"] = "Edit";
+    ViewBag.Title = "Edit";
+    ViewBag.ShowBanner = false;
+}
+
+<h1>Chỉnh sửa</h1>
+
+<h4>Image</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LinkImage" class="control-label"></label>
+                <input asp-for="LinkImage" class="form-control" />
+                <span asp-validation-for="LinkImage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LinkImage1" class="control-label"></label>
+                <input asp-for="LinkImage1" class="form-control" />
+                <span asp-validation-for="LinkImage1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LinkImage2" class="control-label"></label>
+                <input asp-for="LinkImage2" class="form-control" />
+                <span asp-validation-for="LinkImage2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LinkImage3" class="control-label"></label>
+                <input asp-for="LinkImage3" class="form-control" />
+                <span asp-validation-for="LinkImage3" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LinkImage4" class="control-label"></label>
+                <input asp-for="LinkImage4" class="form-control" />
+                <span asp-validation-for="LinkImage4" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div style="font-size:20px">
+    <a asp-action="ShowlistImage">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

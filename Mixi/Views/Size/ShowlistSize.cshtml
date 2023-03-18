@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Mixi.Models.Size>
+
+@{
+    ViewData["Title"] = "ShowlistSize";
+    ViewBag.Title = "ShowlistSize";
+    ViewBag.ShowBanner = false;
+}
+
+<h1>ShowlistSize</h1>
+
+<p style="font-size:20px">
+    <a asp-action="Create">Create New</a>
+    <a asp-controller="Home" asp-action="ShowlistProduct">Back to list</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SizeID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SizeID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {  id=item.SizeID  }) |
+                    @Html.ActionLink("Details", "Details", new {  id=item.SizeID  }) |
+                    @Html.ActionLink("Delete", "Delete", new {  id=item.SizeID  })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

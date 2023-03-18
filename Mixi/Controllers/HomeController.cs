@@ -5,16 +5,20 @@ using Mixi.Services;
 using Mixi.IServices;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Mixi.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
+        private readonly IProductServices productServices;
+        private readonly MixiDbContext mixiDbContext;
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+            productServices = new ProductServices();
+            mixiDbContext = new MixiDbContext();
         }
 
         public IActionResult Index()
@@ -34,19 +38,48 @@ namespace Mixi.Controllers
         {
             return View();
         }
-        public IActionResult Edit()
+        [HttpGet]
+        public IActionResult Edit(Guid id)
         {
+            ViewBag.Color = new SelectList(mixiDbContext.Colors.ToList(), "ColorID", "Name", "Status");
+            ViewBag.Size = new SelectList(mixiDbContext.Sizes.ToList(), "SizeID", "Name", "Status");
+            ViewBag.Category = new SelectList(mixiDbContext.Categories.ToList(), "CategoryID", "Name", "Status");
+            ViewBag.Images = new SelectList(mixiDbContext.Images.ToList(), "ImageID", "LinkImage");
+            Product p = productServices.GetProductById(id);
+            return View(p);
+        }
+        public IActionResult Edit(Product p)
+        {
+            if (productServices.CreateProduct(p))
+            {
+                return RedirectToAction("ShowlistProduct");
+            }
+            else return BadRequest();
+        }
+        public ActionResult Create()//hiển thị
+        {
+            ViewBag.Color = new SelectList(mixiDbContext.Colors.ToList(), "ColorID", "Name", "Status");
+            ViewBag.Size = new SelectList(mixiDbContext.Sizes.ToList(), "SizeID", "Name", "Status");
+            ViewBag.Category = new SelectList(mixiDbContext.Categories.ToList(), "CategoryID", "Name", "Status");
+            ViewBag.Images = new SelectList(mixiDbContext.Images, "ImageID", "LinkImage");
             return View();
         }
-        public IActionResult Create()
+        [HttpPost]
+        public IActionResult Create(Product p)//thực hiện tạo mới
         {
-            return View();
+            if (productServices.CreateProduct(p))
+            {
+                return RedirectToAction("ShowlistProduct");
+            }
+            else return BadRequest();
         }
         public IActionResult Delete(Guid id)
         {
-            MixiDbContext dbContext = new MixiDbContext();
-            var product = dbContext.Products.Find(id);
-            return View();
+            if (productServices.DeleteProduct(id))
+            {
+                return RedirectToAction("ShowlistProduct");
+            }
+            else return BadRequest();
         }
         public IActionResult Show()
         {
@@ -58,9 +91,11 @@ namespace Mixi.Controllers
         {
             using (MixiDbContext c = new MixiDbContext())
             {
-                var lists = c.Products.Include("Size").Include("Color").ToList();
+                var lists = c.Products.Include("Size").Include("Color").Include("Category").Include("Images").ToList();
                 return View(lists);
             }
+            //List<Product> products = productServices.GetAllProduct();
+            //return View(products);
         }
 
         public IActionResult Details(Guid id)

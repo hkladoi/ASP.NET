@@ -61,8 +61,12 @@ namespace Mixi.Services
             try
             {
                 var image = _dbContext.Images.Find(i.ImageID);
-                image.Name =i.Name;
+                image.Name = i.Name;
                 image.LinkImage = i.LinkImage;
+                image.LinkImage1 = i.LinkImage1;
+                image.LinkImage1 = i.LinkImage2;
+                image.LinkImage1 = i.LinkImage3;
+                image.LinkImage1 = i.LinkImage4;
                 return true;
             }
             catch (Exception)

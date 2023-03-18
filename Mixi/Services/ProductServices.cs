@@ -1,4 +1,5 @@
-﻿using Mixi.IServices;
+﻿using Microsoft.EntityFrameworkCore;
+using Mixi.IServices;
 using Mixi.Models;
 
 namespace Mixi.Services
@@ -14,6 +15,7 @@ namespace Mixi.Services
         {
             try
             {
+                p.ProductCode = GenerateProductCode();
                 context.Products.Add(p);
                 context.SaveChanges();
                 return true;
@@ -23,6 +25,11 @@ namespace Mixi.Services
 
                 return false;
             }
+        }
+        public string GenerateProductCode()
+        {
+            int nextId = context.Products.Count() + 1;
+            return "PRD-" + nextId.ToString();
         }
 
         public bool DeleteProduct(Guid id)
