@@ -64,6 +64,8 @@ namespace Mixi.Services
                 Bill.Address = b.Address;
                 Bill.Description = b.Description;
                 Bill.Status = b.Status;
+                _dbContext.Bills.Update(Bill);
+                _dbContext.SaveChanges();
                 return true;
             }
             catch

@@ -26,7 +26,7 @@ namespace Mixi.Controllers
         }
         public IActionResult Edit(Size p)
         {
-            if (sizeServices.CreateSize(p))
+            if (sizeServices.UpdateSize(p))
             {
                 return RedirectToAction("ShowlistSize");
             }

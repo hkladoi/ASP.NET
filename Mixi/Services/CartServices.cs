@@ -60,6 +60,8 @@ namespace Mixi.Services
             {
                 var cart = _dbContext.Carts.Find(c.UserID);
                 cart.Description = c.Description;
+                _dbContext.Carts.Update(cart);
+                _dbContext.SaveChanges();
                 return true;
             }
             catch

@@ -69,6 +69,8 @@ namespace Mixi.Services
                 user.Password = u.Password;
                 user.Address = u.Address;
                 user.Status = u.Status;
+                _dbContext.Users.Update(user);
+                _dbContext.SaveChanges();
                 return true;
             }
             catch (Exception)

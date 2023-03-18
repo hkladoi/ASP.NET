@@ -61,6 +61,8 @@ namespace Mixi.Services
                 var size = _dbContext.Sizes.Find(s.SizeID);
                 size.Name = s.Name;
                 size.Status = s.Status;
+                _dbContext.Sizes.Update(size);
+                _dbContext.SaveChanges();
                 return true;
             }
             catch

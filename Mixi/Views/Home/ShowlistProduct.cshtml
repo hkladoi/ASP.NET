@@ -8,102 +8,115 @@
 
 <h1>Sản phẩm</h1>
 
-<p style="font-size:20px">
-    <a asp-action="Create">Create New</a>
-    <a asp-area="" asp-controller="Color" asp-action="Create">Create New Color</a>
-    <a asp-area="" asp-controller="Size" asp-action="Create">Create New Size</a>
-    <a asp-area="" asp-controller="Category" asp-action="Create">Create New Category</a>
-    <a asp-area="" asp-controller="Image" asp-action="Create">Create New Image</a>
+<p>
+    <a asp-action="Create" class="textasp">Create New</a>
+    <a asp-area="" asp-controller="Color" asp-action="ShowlistColor" class="textasp">Color</a>
+    <a asp-area="" asp-controller="Size" asp-action="ShowlistSize" class="textasp">Size</a>
+    <a asp-area="" asp-controller="Category" asp-action="ShowlistCategory" class="textasp">Category</a>
+    <a asp-area="" asp-controller="Image" asp-action="ShowlistImage" class="textasp">Image</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ProductCode)
+                @*@Html.DisplayNameFor(model => model.ProductCode)*@
+                Mã sản phẩm
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @*@Html.DisplayNameFor(model => model.Name)*@
+                Tên sản phẩm
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Images)
+                @*@Html.DisplayNameFor(model => model.Images)*@
+                Ảnh
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Color)
+                @*@Html.DisplayNameFor(model => model.Color)*@
+                Màu sắc
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Size)
+                @*@Html.DisplayNameFor(model => model.Size)*@
+                Size
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Category)
+                @*@Html.DisplayNameFor(model => model.Category)*@
+                Thể loại
             </th>
-            
+
             <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SalePrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AvailableQuantity)
+                @*@Html.DisplayNameFor(model => model.Price)*@
+                Giá
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Status)
+                @*@Html.DisplayNameFor(model => model.SalePrice)*@
+                Giá giảm
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Supplier)
+                @*@Html.DisplayNameFor(model => model.AvailableQuantity)*@
+                Số lượng
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                @*@Html.DisplayNameFor(model => model.Status)*@
+                Trạng thái
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.Supplier)*@
+                Nhà cung cấp
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.Description)*@
+                Mô tả
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Images.LinkImage)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Color.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Size.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.Name)
-            </td>
-            
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SalePrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AvailableQuantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Supplier)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new {  id=item.ProductID  }) |
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.Images.LinkImage)*@
+                    <image src="@Url.Content(item.Images.LinkImage1)" style="width:50px">
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Color.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Size.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SalePrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AvailableQuantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Supplier)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new {  id=item.ProductID  }) |
                     @Html.ActionLink("Details", "Details", new {  id=item.ProductID  }) |
                     @Html.ActionLink("Delete", "Delete", new {  id=item.ProductID  })
-            </td>
-        </tr>
-}
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

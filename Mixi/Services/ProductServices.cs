@@ -76,7 +76,7 @@ namespace Mixi.Services
                 product.Status = p.Status;
                 product.Description = p.Description;
                 product.Supplier = p.Supplier;
-
+                context.Products.Update(product);
                 context.SaveChanges();
                 return true;
             }

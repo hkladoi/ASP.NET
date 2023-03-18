@@ -61,14 +61,16 @@ namespace Mixi.Services
             try
             {
                 var color = _dbContext.Colors.Find(co.ColorID);
-                color.Name= co.Name;
-                color.Status= co.Status;
+                color.Name = co.Name;
+                color.Status = co.Status;
+                _dbContext.Colors.Update(color);
+                _dbContext.SaveChanges();
                 return true;
             }
             catch (Exception)
             {
 
-                throw;
+                return false;
             }
         }
     }

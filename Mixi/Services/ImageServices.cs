@@ -67,6 +67,8 @@ namespace Mixi.Services
                 image.LinkImage1 = i.LinkImage2;
                 image.LinkImage1 = i.LinkImage3;
                 image.LinkImage1 = i.LinkImage4;
+                _dbContext.Images.Update(image);
+                _dbContext.SaveChanges();
                 return true;
             }
             catch (Exception)

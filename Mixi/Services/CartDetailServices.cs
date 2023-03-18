@@ -62,6 +62,8 @@ namespace Mixi.Services
             {
                 var cartDetail = _dbContext.CartDetails.Find(cd.CartID);
                 cartDetail.Quantity = cd.Quantity;
+                _dbContext.CartDetails.Update(cartDetail);
+                _dbContext.SaveChanges();
                 return true;
             }
             catch (Exception)

@@ -63,6 +63,8 @@ namespace Mixi.Services
                 var role = _dbContext.Roles.Find(r.RoleID);
                 role.RoleName = r.RoleName;
                 role.Status = r.Status;
+                _dbContext.Roles.Update(role);
+                _dbContext.SaveChanges();
                 return true;
             }
             catch (Exception)

@@ -63,6 +63,8 @@ namespace Mixi.Services
                 var category = _dbContext.Categories.Find(ca.CategoryID);
                 category.Name = ca.Name;
                 category.Status = ca.Status;
+                _dbContext.Categories.Update(category);
+                _dbContext.SaveChanges();
                 return true;
             }
             catch (Exception)

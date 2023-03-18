@@ -26,7 +26,7 @@ namespace Mixi.Controllers
         }
         public IActionResult Edit(Category p)
         {
-            if (categoryServices.CreateCategory(p))
+            if (categoryServices.UpdateCategory(p))
             {
                 return RedirectToAction("ShowlistCategory");
             }

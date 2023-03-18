@@ -13,17 +13,28 @@ namespace Mixi.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IProductServices productServices;
+        private readonly IColorServices colorServices;
+        private readonly ISizeServices sizeServices;
+        private readonly ICategoryServices categoryServices;
+        private readonly IImageServices imageServices;
         private readonly MixiDbContext mixiDbContext;
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
             productServices = new ProductServices();
+            colorServices = new ColorServices();
+            sizeServices = new SizeServices();
+            categoryServices = new CategoryServices();
+            imageServices = new ImageServices();
             mixiDbContext = new MixiDbContext();
         }
 
         public IActionResult Index()
         {
-            return View();
+
+            var lists = mixiDbContext.Products.Include("Size").Include("Color").Include("Category").Include("Images").ToList();
+            return View(lists);
+
         }
 
         public IActionResult Privacy()
@@ -41,16 +52,16 @@ namespace Mixi.Controllers
         [HttpGet]
         public IActionResult Edit(Guid id)
         {
-            ViewBag.Color = new SelectList(mixiDbContext.Colors.ToList(), "ColorID", "Name", "Status");
-            ViewBag.Size = new SelectList(mixiDbContext.Sizes.ToList(), "SizeID", "Name", "Status");
-            ViewBag.Category = new SelectList(mixiDbContext.Categories.ToList(), "CategoryID", "Name", "Status");
-            ViewBag.Images = new SelectList(mixiDbContext.Images.ToList(), "ImageID", "LinkImage");
+            ViewBag.Color = new SelectList(colorServices.GetAllColor(), "ColorID", "Name", "Status");
+            ViewBag.Size = new SelectList(sizeServices.GetAllSize(), "SizeID", "Name", "Status");
+            ViewBag.Category = new SelectList(categoryServices.GetAllCategory(), "CategoryID", "Name", "Status");
+            ViewBag.Images = new SelectList(imageServices.GetAllImage(), "ImageID", "LinkImage");
             Product p = productServices.GetProductById(id);
             return View(p);
         }
         public IActionResult Edit(Product p)
         {
-            if (productServices.CreateProduct(p))
+            if (productServices.UpdateProduct(p))
             {
                 return RedirectToAction("ShowlistProduct");
             }
@@ -58,10 +69,10 @@ namespace Mixi.Controllers
         }
         public ActionResult Create()//hiển thị
         {
-            ViewBag.Color = new SelectList(mixiDbContext.Colors.ToList(), "ColorID", "Name", "Status");
-            ViewBag.Size = new SelectList(mixiDbContext.Sizes.ToList(), "SizeID", "Name", "Status");
-            ViewBag.Category = new SelectList(mixiDbContext.Categories.ToList(), "CategoryID", "Name", "Status");
-            ViewBag.Images = new SelectList(mixiDbContext.Images, "ImageID", "LinkImage");
+            ViewBag.Color = new SelectList(colorServices.GetAllColor(), "ColorID", "Name", "Status");
+            ViewBag.Size = new SelectList(sizeServices.GetAllSize(), "SizeID", "Name", "Status");
+            ViewBag.Category = new SelectList(categoryServices.GetAllCategory(), "CategoryID", "Name", "Status");
+            ViewBag.Images = new SelectList(imageServices.GetAllImage(), "ImageID", "LinkImage");
             return View();
         }
         [HttpPost]
@@ -89,19 +100,17 @@ namespace Mixi.Controllers
 
         public IActionResult ShowlistProduct()
         {
-            using (MixiDbContext c = new MixiDbContext())
-            {
-                var lists = c.Products.Include("Size").Include("Color").Include("Category").Include("Images").ToList();
-                return View(lists);
-            }
+
+            var lists = mixiDbContext.Products.Include("Size").Include("Color").Include("Category").Include("Images").ToList();
+            return View(lists);
+
             //List<Product> products = productServices.GetAllProduct();
             //return View(products);
         }
 
         public IActionResult Details(Guid id)
         {
-            MixiDbContext dbContext = new MixiDbContext();
-            var product = dbContext.Products.Find(id);
+            var product = mixiDbContext.Products.Where(c => c.ProductID == id).Include(c => c.Size).Include(c => c.Color).Include(c => c.Category).Include(c => c.Images).FirstOrDefault();
             return View(product);
         }
         public IActionResult Redirect()

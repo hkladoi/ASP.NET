@@ -26,7 +26,7 @@ namespace Mixi.Controllers
         }
         public IActionResult Edit(Image p)
         {
-            if (imageServices.CreateImage(p))
+            if (imageServices.UpdateImage(p))
             {
                 return RedirectToAction("ShowlistImage");
             }

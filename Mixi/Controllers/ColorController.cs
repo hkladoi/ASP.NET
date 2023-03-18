@@ -26,7 +26,7 @@ namespace Mixi.Controllers
         }
         public IActionResult Edit(Color p)
         {
-            if (colorServices.CreateColor(p))
+            if (colorServices.UpdateColor(p))
             {
                 return RedirectToAction("ShowlistColor");
             }
