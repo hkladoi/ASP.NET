@@ -61,6 +61,8 @@ namespace Mixi.Services
             try
             {
                 var cartDetail = _dbContext.CartDetails.Find(cd.CartID);
+                cartDetail.ProductID = cd.ProductID;
+                cartDetail.CartID = cd.CartID;
                 cartDetail.Quantity = cd.Quantity;
                 _dbContext.CartDetails.Update(cartDetail);
                 _dbContext.SaveChanges();

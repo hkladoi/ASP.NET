@@ -28,8 +28,11 @@ namespace Mixi.Services
         }
         public string GenerateProductCode()
         {
-            int nextId = context.Products.Count() + 1;
-            return "PRD-" + nextId.ToString();
+            if (context.Products.Count() == 0)
+            {
+                return "PRD-1";
+            }
+            else return "PRD-" + context.Products.Max(c => Convert.ToInt32(c.ProductCode.Substring(4, c.ProductCode.Length - 4)) + 1);
         }
 
         public bool DeleteProduct(Guid id)
@@ -68,6 +71,10 @@ namespace Mixi.Services
             try
             {
                 var product = context.Products.Find(p.ProductID);
+                product.ColorID = p.ColorID;
+                product.CategoryID = p.CategoryID;
+                product.SizeID = p.SizeID;
+                product.ImageID = p.ImageID;
                 product.Name = p.Name;
                 product.ProductCode = p.ProductCode;
                 product.Price = p.Price;

@@ -196,3 +196,8 @@ h1 {
         .thumbnail_images ul li:hover {
             border: 2px solid #000
         }
+
+.a.linksp{
+    text-decoration: none;
+    color: red;
+}

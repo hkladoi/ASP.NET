@@ -81,8 +81,7 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    @*@Html.DisplayFor(modelItem => item.Images.LinkImage)*@
-                    <image src="@Url.Content(item.Images.LinkImage1)" style="width:50px">
+                    <image src="@Html.DisplayFor(modelItem => item.Images.LinkImage)" style="width:50px">
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Color.Name)
@@ -94,10 +93,10 @@
                     @Html.DisplayFor(modelItem => item.Category.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Price)
+                    @string.Format("{0:N0}đ", item.Price)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.SalePrice)
+                    @string.Format("{0:N0}đ", item.SalePrice)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.AvailableQuantity)

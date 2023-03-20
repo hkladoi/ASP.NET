@@ -49,24 +49,24 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LinkImage)
+                <image src="@Html.DisplayFor(modelItem => item.LinkImage)" style="width:100px">
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LinkImage1)
+                    <image src="@Html.DisplayFor(modelItem => item.LinkImage1)" style="width:100px">
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LinkImage2)
+                    <image src="@Html.DisplayFor(modelItem => item.LinkImage2)" style="width:100px">
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LinkImage3)
+                    <image src="@Html.DisplayFor(modelItem => item.LinkImage3)" style="width:100px">
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LinkImage4)
+                    <image src="@Html.DisplayFor(modelItem => item.LinkImage4)" style="width:100px">
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Edit", "Edit", new {  id=item.ImageID  }) |
+                    @Html.ActionLink("Details", "Details", new {  id=item.ImageID  }) |
+                    @Html.ActionLink("Delete", "Delete", new {  id=item.ImageID  })
             </td>
         </tr>
 }

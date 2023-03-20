@@ -55,7 +55,7 @@ namespace Mixi.Controllers
             ViewBag.Color = new SelectList(colorServices.GetAllColor(), "ColorID", "Name", "Status");
             ViewBag.Size = new SelectList(sizeServices.GetAllSize(), "SizeID", "Name", "Status");
             ViewBag.Category = new SelectList(categoryServices.GetAllCategory(), "CategoryID", "Name", "Status");
-            ViewBag.Images = new SelectList(imageServices.GetAllImage(), "ImageID", "LinkImage");
+            ViewBag.Images = new SelectList(imageServices.GetAllImage(), "ImageID", "Name");
             Product p = productServices.GetProductById(id);
             return View(p);
         }
@@ -69,10 +69,10 @@ namespace Mixi.Controllers
         }
         public ActionResult Create()//hiển thị
         {
-            ViewBag.Color = new SelectList(colorServices.GetAllColor(), "ColorID", "Name", "Status");
-            ViewBag.Size = new SelectList(sizeServices.GetAllSize(), "SizeID", "Name", "Status");
-            ViewBag.Category = new SelectList(categoryServices.GetAllCategory(), "CategoryID", "Name", "Status");
-            ViewBag.Images = new SelectList(imageServices.GetAllImage(), "ImageID", "LinkImage");
+            ViewBag.Color = new SelectList(colorServices.GetAllColor(), "ColorID", "Name");
+            ViewBag.Size = new SelectList(sizeServices.GetAllSize(), "SizeID", "Name");
+            ViewBag.Category = new SelectList(categoryServices.GetAllCategory(), "CategoryID", "Name");
+            ViewBag.Images = new SelectList(imageServices.GetAllImage(), "ImageID", "Name");
             return View();
         }
         [HttpPost]

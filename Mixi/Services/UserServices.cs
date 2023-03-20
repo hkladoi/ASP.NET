@@ -61,6 +61,7 @@ namespace Mixi.Services
             try
             {
                 var user = _dbContext.Users.Find(u.UserID);
+                user.RoleID = u.RoleID;
                 user.FirstName = u.FirstName;
                 user.LastName = u.LastName;
                 user.PhoneNumber = u.PhoneNumber;

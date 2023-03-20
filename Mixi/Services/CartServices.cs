@@ -59,6 +59,7 @@ namespace Mixi.Services
             try
             {
                 var cart = _dbContext.Carts.Find(c.UserID);
+                cart.UserID = c.UserID;
                 cart.Description = c.Description;
                 _dbContext.Carts.Update(cart);
                 _dbContext.SaveChanges();

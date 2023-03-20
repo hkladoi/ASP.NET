@@ -61,6 +61,8 @@ namespace Mixi.Services
             try
             {
                 var BillDetail = _dbContext.BillDetails.Find(bd.ID);
+                BillDetail.ProductID = bd.ProductID;
+                BillDetail.BillID = bd.ID;
                 BillDetail.Quantity = bd.Quantity;
                 BillDetail.Price = bd.Price;
                 _dbContext.BillDetails.Update(BillDetail);

@@ -64,9 +64,9 @@ namespace Mixi.Services
                 image.Name = i.Name;
                 image.LinkImage = i.LinkImage;
                 image.LinkImage1 = i.LinkImage1;
-                image.LinkImage1 = i.LinkImage2;
-                image.LinkImage1 = i.LinkImage3;
-                image.LinkImage1 = i.LinkImage4;
+                image.LinkImage2 = i.LinkImage2;
+                image.LinkImage3 = i.LinkImage3;
+                image.LinkImage4 = i.LinkImage4;
                 _dbContext.Images.Update(image);
                 _dbContext.SaveChanges();
                 return true;

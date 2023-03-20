@@ -59,6 +59,7 @@ namespace Mixi.Services
             try
             {
                 var Bill = _dbContext.Bills.Find(b.BillID);
+                Bill.UserID = b.UserID;
                 Bill.Name = b.Name;
                 Bill.Phone = b.Phone;
                 Bill.Address = b.Address;
