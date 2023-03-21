@@ -4,55 +4,22 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Mixi</title>
-    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />*@
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
+    @*<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />*@
     @*<link rel="stylesheet" href="~/Mixi.styles.css" asp-append-version="true" />*@
-    @*<link rel="stylesheet" href="~/Image"></link>*@
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <link rel="stylesheet" href="~/css/sale.css" asp-append-version="true">
-     
+
+    @*<link rel="stylesheet" href="~/css/sale.css" >*@
     <link rel="shortcut icon" type="image/png" href="~/Image/icon.png" />
 </head>
 <body>
     <header>
-        @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Mixi</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Test">Test</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Redirect">Test1</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Color" asp-action="ShowlistColor">Màu</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ShowlistProduct">Các Sản Phẩm</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Abount">Giới thiệu</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>*@
-        
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" style="padding: 0; position: relative;">
             <div class="container-fluid"
                  style="background-color: white; padding-left: 10%; padding-right: 10%; font-weight: bold; font-size: medium;">
@@ -66,9 +33,20 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">HOME</a>
                         </li>
-                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="ShowlistProduct">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Show">
                             DANH MỤC SẢN PHẨM
                         </a>
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                Dropdown Example
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">HTML</a></li>
+                                <li><a href="#">CSS</a></li>
+                                <li><a href="#">JavaScript</a></li>
+                            </ul>
+                        </div>
 
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Abount">GIỚI THIỆU</a>
@@ -82,10 +60,10 @@
                     </form>
                 </div>
                 <ul class="nav justify-content-end">
-                        <a class="btn btn-secondary " role="button" asp-area="" asp-controller="Home" asp-action="ShowlistProduct">
-                            <img src="~/Image/add.png" alt="Bootstrap" width="20" height="20">
-                        </a>
-                    
+                    <a class="btn btn-secondary " role="button" asp-area="" asp-controller="Home" asp-action="ShowlistProduct">
+                        <img src="~/Image/add.png" alt="Bootstrap" width="20" height="20">
+                    </a>
+
                     <a class="navbar-brand">
                         <img src="~/Image/phone-call2.png" alt="">
                     </a>
@@ -111,7 +89,7 @@
             <img src="~/Image/banner2.png" alt="" width="100%" alt="Banner" />
         </div>
     }
-    
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()

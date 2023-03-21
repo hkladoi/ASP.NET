@@ -1,10 +1,75 @@
-﻿@model Product //strong type
-<h4>ID: @Model.ProductID</h4>
-<h4>Tên: @Model.Name</h4>
-<h4>Mã: @Model.ProductCode</h4>
-<h4>Giá: @Model.Price</h4>
-<h4>Giá giảm: @Model.SalePrice</h4>
-<h4>Nhà sản xuất: @Model.Supplier</h4>
-<h4>Số lượng tồn: @Model.AvailableQuantity</h4>
-<h4>Trạng thái: @Model.Status</h4>
-<h4>Mô tả: @Model.Description</h4>
+﻿@model IEnumerable<Mixi.Models.Product>
+
+@{
+    ViewData["Title"] = "Show";
+    ViewBag.Title = "Show";
+    ViewBag.ShowBanner = false;
+}
+
+
+<div class="container text-center">
+    <div class="row align-items-start">
+        <div class="col-4" style="text-align: left; padding-top: 20px;">
+            <H2 style="font-weight: bold; font-size: 20px;">ĐỒ LƯU NIỆM MIXI</H2>
+            <a href="index.html" style="text-decoration: none; color: black; font-size: 15px;">
+                TRANG CHỦ /
+                <strong>ĐỒ LƯU NIỆM MIXI</strong>
+            </a>
+        </div>
+        <div class="col-4" style="text-align: left; padding-top: 20px;">
+            <p align="right" style="padding-top: 7px; font-size: 15px;">Hiển thị 12-24 kết quả</p>
+        </div>
+        <div class="col-4" style="text-align: left; padding-top: 20px;">
+            <select class="form-select" aria-label="Default select example">
+                <option selected>Mới nhất</option>
+                <option value="1">Thứ tự theo giá: Thấp đến cao</option>
+                <option value="2">Thứ tự theo giá: Cao đến thấp</option>
+            </select>
+        </div>
+    </div>
+    <div class="row align-items-start" style="padding-bottom: 20px;">
+        <div class="col-3 col-md-3">
+            <div class="card" style="width: 18rem; border: none; margin-top: 20px; margin-bottom: 20px;">
+                <div class="card-body" style="text-align: left;">
+                    <label for="customRange1" class="form-label">Lọc theo giá</label>
+                    <input type="range" class="form-range" id="customRange1">
+                    <button type="button" class="btn btn-primary">Lọc</button>
+                </div>
+                <ul class="list-group list-group-flush" style="text-align: left;">
+                    <li class="list-group-item" style="font-weight: bold;">
+                        <a href="" style="text-decoration: none; color: black;">Đồ Lưu Niệm Mixi</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="" style="text-decoration: none; color: black;">Áo Ba Lỗ</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="" style="text-decoration: none; color: black;">Áo Mixi</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="" style="text-decoration: none; color: black;">Áo CSGO</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        @foreach (var item in Model)
+        {
+            <div class="col-3 col-md-3">
+                <div class="anh" style="position: relative;">
+                    <div class="hot1">
+                        <img src="image/bookmark4.png" alt="">
+                        <p class="label">HOT </p>
+                    </div>
+                    <img src="@item.Images.LinkImage" class="img-thumbnail" alt="...">
+                </div>
+                <p>@item.Category.Name</p>
+                <a class="text" href="chitietsp.html">@item.Name</a>
+                <img src="~/Image/stars4.png" alt="" width="100px">
+                <h5>@item.Price</h5>
+            </div>
+        }
+    </div>
+    <div class="center" style="padding-bottom: 30px; margin-left: 25%;">
+        <button type="button" class="btn btn-secondary btn-rounded">1</button>
+        <button type="button" class="btn btn-secondary btn-rounded">2</button>
+    </div>
+</div>

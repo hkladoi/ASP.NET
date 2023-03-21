@@ -32,7 +32,7 @@ namespace Mixi.Controllers
         public IActionResult Index()
         {
 
-            var lists = mixiDbContext.Products.Include("Size").Include("Color").Include("Category").Include("Images").ToList();
+            var lists = mixiDbContext.Products.Take(8).Include("Size").Include("Color").Include("Category").Include("Images").ToList();
             return View(lists);
 
         }
@@ -92,9 +92,9 @@ namespace Mixi.Controllers
             }
             else return BadRequest();
         }
-        public IActionResult Show()
+        public IActionResult Show(Guid id)
         {
-            Product product = new Product() { ProductID = Guid.NewGuid(), Name = "hkladoi", ProductCode = "HK1", Price = 1000, SalePrice = 100, AvailableQuantity = 1, Supplier = "HN", Description = "co san", Status = 0 };
+            var product = mixiDbContext.Products.Where(c => c.CategoryID == id).Include(c => c.Size).Include(c => c.Color).Include(c => c.Category).Include(c => c.Images).ToList();
             return View(product);
         }
 
@@ -107,6 +107,7 @@ namespace Mixi.Controllers
             //List<Product> products = productServices.GetAllProduct();
             //return View(products);
         }
+
 
         public IActionResult Details(Guid id)
         {

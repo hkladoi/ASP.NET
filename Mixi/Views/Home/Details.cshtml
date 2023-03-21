@@ -9,9 +9,9 @@
 <div class="container text-center">
     <div class="row align-items-start">
         <div class="col-4" style="text-align: left; padding-top: 20px; padding-bottom: 20px;">
-            <a  style="text-decoration: none; color: black; font-size: 15px;">
+            <a  style="text-decoration: none; color: black; font-size: 15px;" asp-area="" asp-controller="Home" asp-action="Index">
                 TRANG CHỦ /
-                <a  style="text-decoration: none; color: black; font-size: 15px;">
+                <a style="text-decoration: none; color: black; font-size: 15px;">
                     @Html.DisplayFor(model => model.Category.Name)
                 </a>
             </a>
@@ -50,7 +50,11 @@
             </div>
         </div>
         <div class="col-6" style="text-align: left;">
-            <h2 style="font-weight: bold;">@Html.DisplayFor(model => model.Name)</h2>
+            <h2 style="font-weight: bold;">
+                <div>
+                    @Html.DisplayFor(model => model.Name) @Html.DisplayFor(model => model.Color.Name) @Html.DisplayFor(model => model.Size.Name)
+                </div>
+            </h2>
             <hr width="50px">
             <img src="~/Image/stars4.png" alt="" width="15%" style="padding-bottom: 10px;"><br>
             <a style="text-decoration: none; color: rgb(3, 182, 242);">
@@ -65,26 +69,32 @@
             </a><br>
             <img src="~/Image/size.jpg" alt="" width="100%" style="padding-bottom: 10px;"><br>
             <p style="font-weight: bold; color: rgb(29, 255, 90); font-size: 15px;">Còn hàng</p>
-            <div class="d-flex flex-row">
+            <div class="d-flex flex-row" style="display:inline-flex">
+                <p style="height:36,8px">Số lượng </p>
+               
                 <button class="btn btn-link px-2"
                         onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
                     <i class="fas fa-minus"></i>
                 </button>
-
                 <input id="form1" min="0" name="quantity" value="1" type="number"
-                       class="form-control form-control-sm" style="width: 50px;" />
+                       class="form-control form-control-sm" style="width: 50px; height:10px" />
 
                 <button class="btn btn-link px-2"
                         onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
                     <i class="fas fa-plus"></i>
-                </button>
-                <button class="btn btn-outline-dark" style="margin-right: 20px;">Mua ngay</button>
+                </button
+                <div>
+                    <p>@Html.DisplayFor(model => model.AvailableQuantity) Sản phẩm có sẵn</p>
+                </div>
+                <div>
+                    <button class="btn btn-outline-dark" style="margin-right: 20px;">Mua ngay</button>
                 <button class="btn btn-dark" style="background-color: rgb(3, 182, 242);">Thêm vào giỏ hàng</button>
-            </div>
-            <hr>
-            <p style="font-size: 15px;">
+                </div>
+                <p style="font-size: 15px; margin-top:10px">
                 Danh mục:<a style="text-decoration: none; color: rgb(3, 182, 242);">@Html.DisplayFor(model => model.Category.Name)</a>
             </p>
+            </div>
+            <hr>
         </div>
     </div>
     <div class="container mt-2">
@@ -333,7 +343,3 @@
     </div>
 </div>
 
-<div>
-    @Html.ActionLink("Edit", "Edit", new {  id = Model.ProductID  }) |
-    <a asp-action="ShowlistProduct" class="textasp">Back to List</a>
-</div>
