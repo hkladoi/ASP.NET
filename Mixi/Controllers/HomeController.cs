@@ -32,7 +32,7 @@ namespace Mixi.Controllers
         public IActionResult Index()
         {
 
-            var lists = mixiDbContext.Products.Take(8).Include("Size").Include("Color").Include("Category").Include("Images").ToList();
+            var lists = mixiDbContext.Products.Take(8).Where(c => c.Status < 3).Include("Size").Include("Color").Include("Category").Include("Images").ToList();
             return View(lists);
 
         }
@@ -61,11 +61,20 @@ namespace Mixi.Controllers
         }
         public IActionResult Edit(Product p)
         {
+            ViewBag.Color = new SelectList(colorServices.GetAllColor(), "ColorID", "Name", "Status");
+            ViewBag.Size = new SelectList(sizeServices.GetAllSize(), "SizeID", "Name", "Status");
+            ViewBag.Category = new SelectList(categoryServices.GetAllCategory(), "CategoryID", "Name", "Status");
+            ViewBag.Images = new SelectList(imageServices.GetAllImage(), "ImageID", "Name");
             if (productServices.UpdateProduct(p))
             {
                 return RedirectToAction("ShowlistProduct");
             }
-            else return BadRequest();
+            else
+            {
+                //TempData["AlertMessage"] = "lỗi đm";
+                //return View();
+                return BadRequest();
+            }
         }
         public ActionResult Create()//hiển thị
         {
@@ -94,8 +103,10 @@ namespace Mixi.Controllers
         }
         public IActionResult Show(Guid id)
         {
-            var product = mixiDbContext.Products.Where(c => c.CategoryID == id).Include(c => c.Size).Include(c => c.Color).Include(c => c.Category).Include(c => c.Images).ToList();
-            return View(product);
+            //var product = mixiDbContext.Products.Where(c => c.CategoryID == id).Include(c => c.Size).Include(c => c.Color).Include(c => c.Category).Include(c => c.Images).ToList();
+            //return View(product);
+            var lists = mixiDbContext.Products.Take(8).Include("Size").Include("Color").Include("Category").Include("Images").ToList();
+            return View(lists);
         }
 
         public IActionResult ShowlistProduct()
@@ -113,6 +124,12 @@ namespace Mixi.Controllers
         {
             var product = mixiDbContext.Products.Where(c => c.ProductID == id).Include(c => c.Size).Include(c => c.Color).Include(c => c.Category).Include(c => c.Images).FirstOrDefault();
             return View(product);
+        }
+        public IActionResult ShowlistCategory()
+        {
+
+            List<Category> Category = categoryServices.GetAllCategory();
+            return View(Category);
         }
         public IActionResult Redirect()
         {

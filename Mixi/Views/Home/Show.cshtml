@@ -48,25 +48,31 @@
                     <li class="list-group-item">
                         <a href="" style="text-decoration: none; color: black;">Áo CSGO</a>
                     </li>
+                    
                 </ul>
             </div>
         </div>
-        @foreach (var item in Model)
-        {
-            <div class="col-3 col-md-3">
-                <div class="anh" style="position: relative;">
-                    <div class="hot1">
-                        <img src="image/bookmark4.png" alt="">
-                        <p class="label">HOT </p>
+        <div class="col-9 col-md-9">
+            <div class="row align-items-start">
+                @foreach (var item in Model)
+                {
+                    <div class="col-3 col-md-3">
+                        <div class="anh" style="position: relative;">
+                            <div class="hot1">
+                                <img src="~/Image/bookmark4.png" alt="">
+                                <p class="label">HOT </p>
+                            </div>
+                            <img src="@item.Images.LinkImage" class="img-thumbnail" alt="...">
+                        </div>
+                        <p>@item.Category.Name</p>
+                        <a class="text" href="chitietsp.html">@item.Name</a>
+                        <img src="~/Image/stars4.png" alt="" width="100px">
+                        <h5>@item.Price</h5>
                     </div>
-                    <img src="@item.Images.LinkImage" class="img-thumbnail" alt="...">
-                </div>
-                <p>@item.Category.Name</p>
-                <a class="text" href="chitietsp.html">@item.Name</a>
-                <img src="~/Image/stars4.png" alt="" width="100px">
-                <h5>@item.Price</h5>
+                }
             </div>
-        }
+            
+        </div>
     </div>
     <div class="center" style="padding-bottom: 30px; margin-left: 25%;">
         <button type="button" class="btn btn-secondary btn-rounded">1</button>

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.DotNet.Scaffolding.Shared.Messaging;
+using Microsoft.EntityFrameworkCore;
 using Mixi.IServices;
 using Mixi.Models;
 
@@ -71,21 +72,26 @@ namespace Mixi.Services
             try
             {
                 var product = context.Products.Find(p.ProductID);
-                product.ColorID = p.ColorID;
-                product.CategoryID = p.CategoryID;
-                product.SizeID = p.SizeID;
-                product.ImageID = p.ImageID;
-                product.Name = p.Name;
-                product.ProductCode = p.ProductCode;
-                product.Price = p.Price;
-                product.SalePrice = p.SalePrice;
-                product.AvailableQuantity = p.AvailableQuantity;
-                product.Status = p.Status;
-                product.Description = p.Description;
-                product.Supplier = p.Supplier;
-                context.Products.Update(product);
-                context.SaveChanges();
-                return true;
+                //if (product.Price > p.Price)
+                //{
+                    product.ColorID = p.ColorID;
+                    product.CategoryID = p.CategoryID;
+                    product.SizeID = p.SizeID;
+                    product.ImageID = p.ImageID;
+                    product.Name = p.Name;
+                    product.ProductCode = p.ProductCode;
+                    product.Price = p.Price;
+                    product.SalePrice = p.SalePrice;
+                    product.AvailableQuantity = p.AvailableQuantity;
+                    product.Status = p.Status;
+                    product.Description = p.Description;
+                    product.Supplier = p.Supplier;
+                    context.Products.Update(product);
+                    context.SaveChanges();
+                    return true;
+                //}
+                //else return false;
+
             }
             catch (Exception)
             {
