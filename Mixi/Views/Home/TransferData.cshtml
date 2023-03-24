@@ -1,0 +1,16 @@
+﻿@{
+    ViewData["Title"] = "ShowlistProduct";
+    ViewBag.Title = "ShowlistProduct";
+    ViewBag.ShowBanner = false;
+    List<string> names = ViewData["name"] as List<string>;
+    foreach (var item in ViewBag.Marrk)
+    {
+        <p>@item</p>
+    }
+    foreach (var item in names)
+    {
+        <p>@item</p>
+    }
+}
+<h4> @ViewData["content"]</h4>
+<h1>XIn chafo aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</h1>

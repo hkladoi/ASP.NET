@@ -131,6 +131,36 @@ namespace Mixi.Controllers
             List<Category> Category = categoryServices.GetAllCategory();
             return View(Category);
         }
+
+        public IActionResult TransferData()//day du lieu qua cac view
+        {
+            //de truyen du lieu qua view thi ngoai cach truyen truc tiep 1 object model
+            /*
+             * su dung viewbag: du lieuj trong viewbag la du lieu dynamic
+             * khong can khoi tao thanh phan ma dat ten luon
+             * 
+             */
+            int[] marrk = { 1, 2, 3, 4, 5 };
+            List<string> charec = new List<string>()
+            {
+                "naruto","xeko","sasuke"
+            };
+            /*
+             * ViewData 
+             * data se duoc truyen tai duoi dang key-value
+             * du lieu lai o dang generic
+             */
+            /*
+             * su dung session(phien lam viec), co che value-key
+             */
+            string massages = "shop db";
+            HttpContext.Session.SetString("Messages", massages);
+            string content = HttpContext.Session.GetString("Messages");
+            ViewData["name"] = charec;//gan du lieu
+            ViewBag.marrk = marrk;//gan du lieu
+            ViewData["content"] = content;
+            return View();
+        }
         public IActionResult Redirect()
         {
             return RedirectToAction("Test");//thực hiện điều hướng đến 1 action nào đó

@@ -1,3 +1,4 @@
+using Microsoft.CodeAnalysis.Options;
 using Mixi.IServices;
 using Mixi.Services;
 using System.Globalization;
@@ -13,6 +14,11 @@ builder.Services.AddTransient<ISizeServices, SizeServices>();
 builder.Services.AddTransient<IImageServices, ImageServices>();
 //builder.Services.AddSingleton<IProductServices, ProductServices>();//service ch? ?c t?o 1 l?n trong su?t lifetime,phù h?p cho các service có tính toàn c?c và k thay ??i
 //builder.Services.AddScoped<IProductServices, ProductServices>();//là m?i l?n request là s? t?o l?i service 1 l?n,dùng cho các service có tính ch?t ??c thù nào ?ó
+//khai bao session voi thoi gian timeout laf 30
+builder.Services.AddSession(Options =>
+{
+    Options.IdleTimeout = TimeSpan.FromSeconds(30);
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -25,7 +31,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseSession();
 app.UseRouting();
 
 app.UseAuthorization();
