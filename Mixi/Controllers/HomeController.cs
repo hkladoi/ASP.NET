@@ -6,6 +6,7 @@ using Mixi.IServices;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Mixi.ViewModel;
 
 namespace Mixi.Controllers
 {
@@ -32,7 +33,8 @@ namespace Mixi.Controllers
         public IActionResult Index()
         {
 
-            var lists = mixiDbContext.Products.Take(8).Where(c => c.Status < 3).Include("Size").Include("Color").Include("Category").Include("Images").ToList();
+            List<Category> Category = categoryServices.GetAllCategory();
+            var lists = mixiDbContext.Products.Take(8).Include("Size").Include("Color").Include("Category").Include("Images").ToList();
             return View(lists);
 
         }
@@ -101,14 +103,31 @@ namespace Mixi.Controllers
             }
             else return BadRequest();
         }
-        public IActionResult Show(Guid id)
+        public ActionResult Show()
         {
             //var product = mixiDbContext.Products.Where(c => c.CategoryID == id).Include(c => c.Size).Include(c => c.Color).Include(c => c.Category).Include(c => c.Images).ToList();
             //return View(product);
-            var lists = mixiDbContext.Products.Take(8).Include("Size").Include("Color").Include("Category").Include("Images").ToList();
-            return View(lists);
+            var viewModel = new ProductCategoryViewModel
+            {
+                Products = mixiDbContext.Products.Include("Size").Include("Color").Include("Category").Include("Images").ToList(),
+                Categories = mixiDbContext.Categories.ToList()
+            };
+            return View(viewModel);
         }
-
+        public IActionResult ShowProductByCategory(Guid id)
+        {
+            //var product = mixiDbContext.Products.Where(c => c.CategoryID == id).Include(c => c.Size).Include(c => c.Color).Include(c => c.Category).Include(c => c.Images).ToList();
+            //return View(product);
+            var viewModel = new ProductCategoryViewModel
+            {
+                Products = mixiDbContext.Products.Where(c => c.CategoryID == id).Include(c => c.Size).Include(c => c.Color).Include(c => c.Category).Include(c => c.Images).ToList(),
+                Categories = mixiDbContext.Categories.ToList(),
+                CategoryName = categoryServices.GetCategoryById(id).Name
+            };
+            return View(viewModel);
+            //var lists = mixiDbContext.Products.Take(8).Include("Size").Include("Color").Include("Category").Include("Images").ToList();
+            //return View(lists);
+        }
         public IActionResult ShowlistProduct()
         {
 

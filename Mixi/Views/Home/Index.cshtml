@@ -7,6 +7,10 @@
 
 <div class="text-center">
     <div class="container text-center" style="padding: 0px;">
+        <div style="font-size:16px;margin:50px 0px 50px 0px">
+            <p style ="font-weight:700; font-size:39px; margin-bottom:20px">BÁN CHẠY NHẤT</p>
+            <a type="button" class="btn btn-outline-primary" asp-controller="Home" asp-action="Show" style="text-decoration:none">XEM TẤT CẢ</a>
+        </div>
         <div class="row align-items-start">
             @foreach (var item in Model)
             {
@@ -29,22 +33,13 @@
                         @*<img src="~/Image/sp8.png" class="img-thumbnail" alt="...">*@
                         <image src="@Url.Content(item.Images.LinkImage1)" style="width:300px;height:400px">
                     </div>
-                    <p style="margin-bottom:-10px">
-                        @Html.DisplayFor(modelItem => item.Category.Name)
+                    <p style="margin-bottom:-5px">
+                        @item.Category.Name
                         @*@Html.ActionLink(item.Category.Name, "Show", new {  @id=item.CategoryID  })*@
-                        </p>
-                    <a class="linksp">
-                        <div>
-                            @Html.ActionLink(item.Name, "Details", new {  id=item.ProductID  })
-                        </div>
-                    </a><br>
+                    </p>
+                    @Html.ActionLink(item.Name, "Details", new {  id=item.ProductID  }) <br>
                     <img src="~/Image/stars4.png" alt="" width="100px"><br>
-                    <div style="display: inline-flex;">
-                        <h5>@string.Format("{0:N0}đ", item.Price)</h5>
-                        @*<h5 ng-if="ass.giamgia">
-                    <del>{{ass.giaban | currency: 'đ':0 }}</del><h5 style="color: red;">{{ass.giamgia | currency: 'đ':0 }}</h5>
-                    </h5>*@
-                    </div>
+                    <h5>@string.Format("{0:N0}đ", item.Price)</h5> <br>
                 </div>
             }
         </div>
