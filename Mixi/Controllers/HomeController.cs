@@ -32,10 +32,17 @@ namespace Mixi.Controllers
 
         public IActionResult Index()
         {
-
             List<Category> Category = categoryServices.GetAllCategory();
             var lists = mixiDbContext.Products.Take(8).Include("Size").Include("Color").Include("Category").Include("Images").ToList();
-            return View(lists);
+            string acc = HttpContext.Session.GetString("acc");
+            if (acc != null)
+            {
+                return View(lists);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
 
         }
 
@@ -54,9 +61,9 @@ namespace Mixi.Controllers
         [HttpGet]
         public IActionResult Edit(Guid id)
         {
-            ViewBag.Color = new SelectList(colorServices.GetAllColor(), "ColorID", "Name", "Status");
-            ViewBag.Size = new SelectList(sizeServices.GetAllSize(), "SizeID", "Name", "Status");
-            ViewBag.Category = new SelectList(categoryServices.GetAllCategory(), "CategoryID", "Name", "Status");
+            ViewBag.Color = new SelectList(colorServices.GetAllColor(), "ColorID", "Name");
+            ViewBag.Size = new SelectList(sizeServices.GetAllSize(), "SizeID", "Name");
+            ViewBag.Category = new SelectList(categoryServices.GetAllCategory(), "CategoryID", "Name");
             ViewBag.Images = new SelectList(imageServices.GetAllImage(), "ImageID", "Name");
             Product p = productServices.GetProductById(id);
             return View(p);

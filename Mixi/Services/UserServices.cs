@@ -10,6 +10,7 @@ namespace Mixi.Services
         {
             _dbContext = new MixiDbContext();
         }
+
         public bool CreateUser(User u)
         {
             try
