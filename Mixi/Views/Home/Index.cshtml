@@ -4,7 +4,17 @@
     ViewBag.Title = "Home Page";
     ViewBag.ShowBanner = true;
 }
-
+@if (TempData["error"] != null)
+{
+    <script>
+        Swal.fire({
+            title: 'Error!',
+            text: 'Bạn cần phải đăng nhập với quyền admin',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        })
+    </script>
+}
 <div class="text-center">
     <div class="container text-center" style="padding: 0px;">
         <div style="font-size:16px;margin:50px 0px 50px 0px">

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Mixi.ViewModel;
 using System.Collections;
+using System;
 
 namespace Mixi.Controllers
 {
@@ -35,16 +36,16 @@ namespace Mixi.Controllers
         {
             List<Category> Category = categoryServices.GetAllCategory();
             var lists = mixiDbContext.Products.Take(8).Include("Size").Include("Color").Include("Category").Include("Images").ToList();
-            string acc = HttpContext.Session.GetString("acc");
-            if (acc != null)
-            {
-                return View(lists);
-            }
-            else
-            {
-                return RedirectToAction("Login", "Account");
-            }
-
+            //string acc = HttpContext.Session.GetString("acc");
+            //if (acc != null)
+            //{
+            //    return View(lists);
+            //}
+            //else
+            //{
+            //    return RedirectToAction("Login", "Account");
+            //}
+            return View(lists);
         }
 
         public IActionResult Privacy()
@@ -120,16 +121,16 @@ namespace Mixi.Controllers
                 Products = mixiDbContext.Products.Include("Size").Include("Color").Include("Category").Include("Images").ToList(),
                 Categories = mixiDbContext.Categories.ToList()
             };
-            string acc = HttpContext.Session.GetString("acc");
-            if (acc != null)
-            {
-                return View(viewModel);
-            }
-            else
-            {
-                return RedirectToAction("Login", "Account");
-            }
-            //return View(viewModel);
+            //string acc = HttpContext.Session.GetString("acc");
+            //if (acc != null)
+            //{
+            //    return View(viewModel);
+            //}
+            //else
+            //{
+            //    return RedirectToAction("Login", "Account");
+            //}
+            return View(viewModel);
         }
         public IActionResult ShowProductByCategory(Guid id)
         {
@@ -141,16 +142,16 @@ namespace Mixi.Controllers
                 Categories = mixiDbContext.Categories.ToList(),
                 CategoryName = categoryServices.GetCategoryById(id).Name
             };
-            string acc = HttpContext.Session.GetString("acc");
-            if (acc != null)
-            {
-                return View(viewModel);
-            }
-            else
-            {
-                return RedirectToAction("Login", "Account");
-            }
-            //return View(viewModel);
+            //string acc = HttpContext.Session.GetString("acc");
+            //if (acc != null)
+            //{
+            //    return View(viewModel);
+            //}
+            //else
+            //{
+            //    return RedirectToAction("Login", "Account");
+            //}
+            return View(viewModel);
             //var lists = mixiDbContext.Products.Take(8).Include("Size").Include("Color").Include("Category").Include("Images").ToList();
             //return View(lists);
         }
@@ -158,14 +159,17 @@ namespace Mixi.Controllers
         {
 
             var lists = mixiDbContext.Products.Include("Size").Include("Color").Include("Category").Include("Images").ToList();
-            string acc = HttpContext.Session.GetString("acc");
-            if (acc != null)
+            var acc = HttpContext.Session.GetString("acc");
+            var role = HttpContext.Session.GetString("role");
+            if (acc != null && role == "admin")
             {
                 return View(lists);
             }
             else
             {
-                return RedirectToAction("Login", "Account");
+                //return Content("bạn cần phải đăng nhập với quyền admin");
+                TempData["error"] = "Bạn cần phải đăng nhập với quyền admin";
+                return Redirect("index");
             }
             //return View(lists);
 
