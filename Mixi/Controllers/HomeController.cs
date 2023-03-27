@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Mixi.ViewModel;
+using System.Collections;
 
 namespace Mixi.Controllers
 {
@@ -119,7 +120,16 @@ namespace Mixi.Controllers
                 Products = mixiDbContext.Products.Include("Size").Include("Color").Include("Category").Include("Images").ToList(),
                 Categories = mixiDbContext.Categories.ToList()
             };
-            return View(viewModel);
+            string acc = HttpContext.Session.GetString("acc");
+            if (acc != null)
+            {
+                return View(viewModel);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            //return View(viewModel);
         }
         public IActionResult ShowProductByCategory(Guid id)
         {
@@ -131,7 +141,16 @@ namespace Mixi.Controllers
                 Categories = mixiDbContext.Categories.ToList(),
                 CategoryName = categoryServices.GetCategoryById(id).Name
             };
-            return View(viewModel);
+            string acc = HttpContext.Session.GetString("acc");
+            if (acc != null)
+            {
+                return View(viewModel);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            //return View(viewModel);
             //var lists = mixiDbContext.Products.Take(8).Include("Size").Include("Color").Include("Category").Include("Images").ToList();
             //return View(lists);
         }
@@ -139,7 +158,16 @@ namespace Mixi.Controllers
         {
 
             var lists = mixiDbContext.Products.Include("Size").Include("Color").Include("Category").Include("Images").ToList();
-            return View(lists);
+            string acc = HttpContext.Session.GetString("acc");
+            if (acc != null)
+            {
+                return View(lists);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            //return View(lists);
 
             //List<Product> products = productServices.GetAllProduct();
             //return View(products);
