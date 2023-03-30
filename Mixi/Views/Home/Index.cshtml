@@ -3,15 +3,27 @@
     ViewData["Title"] = "Home Page";
     ViewBag.Title = "Home Page";
     ViewBag.ShowBanner = true;
+    var acc = Context.Session.GetString("acc");
 }
-@if (TempData["error"] != null)
+@if (TempData["role"] != null)
 {
     <script>
         Swal.fire({
-            title: 'Error!',
-            text: 'Bạn cần phải đăng nhập với quyền admin',
+            title: '@TempData["role"]',
             icon: 'error',
-            confirmButtonText: 'OK'
+            showConfirmButton: false,
+            timer: 1500
+        })
+    </script>
+}
+@if (TempData["login"] != null)
+{
+    <script>
+        Swal.fire({
+            title: '@TempData["login"]',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1500
         })
     </script>
 }

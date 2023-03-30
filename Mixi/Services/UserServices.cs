@@ -25,7 +25,34 @@ namespace Mixi.Services
                 return false;
             }
         }
+        public bool Createkach(User u)
+        {
 
+            try
+            {
+                var user = _dbContext.Users.Find(u.UserID);
+                if (user.Email == u.Email)
+                {
+                    return false;
+                }
+                else if (user.Account == u.Account)
+                {
+                    return false;
+                }
+                else
+                {
+                    u.RoleID = Guid.Parse("6c54da06-1a6e-4404-8fe3-08db2ee1349c");
+                    _dbContext.Users.Add(u);
+                    _dbContext.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
         public bool DeleteUser(Guid id)
         {
             try

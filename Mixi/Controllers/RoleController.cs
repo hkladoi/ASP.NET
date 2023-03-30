@@ -11,9 +11,9 @@ namespace Mixi.Controllers
 {
     public class RoleController : Controller
     {
-        private readonly ILogger<SizeController> _logger;
+        private readonly ILogger<RoleController> _logger;
         private readonly IRoleServices roleServices;
-        public RoleController(ILogger<SizeController> logger)
+        public RoleController(ILogger<RoleController> logger)
         {
             _logger = logger;
             roleServices = new RoleServices();

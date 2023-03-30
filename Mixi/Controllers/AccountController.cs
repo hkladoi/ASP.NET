@@ -12,12 +12,12 @@ namespace Mixi.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly ILogger<CategoryController> _logger;
+        private readonly ILogger<AccountController> _logger;
         private readonly MixiDbContext mixiDbContext;
         private readonly IUserServices userServices;
         private readonly IRoleServices roleServices;
 
-        public AccountController(ILogger<CategoryController> logger)
+        public AccountController(ILogger<AccountController> logger)
         {
             _logger = logger;
             mixiDbContext = new MixiDbContext();
@@ -26,6 +26,7 @@ namespace Mixi.Controllers
         }
         public IActionResult Login()
         {
+            TempData["Login"] = "Chào mừng " + HttpContext.Session.GetString("name");
             return View();
         }
         [HttpPost]
@@ -40,6 +41,7 @@ namespace Mixi.Controllers
                 HttpContext.Session.SetString("acc", data.Account);
                 HttpContext.Session.SetString("role", data.Roles.RoleName);
                 HttpContext.Session.SetString("name", data.FirstName + " " + data.LastName);
+                TempData["Login"] = "Chào mừng " + HttpContext.Session.GetString("name");
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -51,7 +53,7 @@ namespace Mixi.Controllers
         }
         public ActionResult Logout()
         {
-            HttpContext.Session.Remove("acc");
+            HttpContext.Session.Clear();
             return RedirectToAction("Login");
         }
         public IActionResult Register()
@@ -63,16 +65,17 @@ namespace Mixi.Controllers
         public ActionResult Register(User _user)
         {
 
-            var check = mixiDbContext.Users.FirstOrDefault(s => s.Email == _user.Email);
-            if (check == null)
+            var email = mixiDbContext.Users.FirstOrDefault(s => s.Email == _user.Email);
+            var acc = mixiDbContext.Users.FirstOrDefault(c => c.Account == _user.Account);
+            if (email == null && acc == null)
             {
-                //objModel.Configuration.ValidateOnSaveEnabled = false;
-                userServices.CreateUser(_user);
+                userServices.Createkach(_user);
                 return RedirectToAction("Login");
             }
             else
             {
-                ViewBag.error = "Email already exists";
+                TempData["email"] = "Email đã tồn tại";
+                TempData["acc"] = "Account đã tồn tại";
                 return View();
             }
         }

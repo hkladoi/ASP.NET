@@ -4,6 +4,7 @@ namespace Mixi.IServices
     public interface IUserServices
     {
         public bool CreateUser(User u);
+        public bool Createkach(User u);
         public bool UpdateUser(User u);
         public bool DeleteUser(Guid id);
         public List<User> GetAllUser();

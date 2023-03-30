@@ -5,71 +5,6 @@
     ViewBag.Title = "Register";
     ViewBag.ShowBanner = false;
 }
-@*<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Register">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="UserID" class="control-label"></label>
-                <input asp-for="UserID" class="form-control" />
-                <span asp-validation-for="UserID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RoleID" class="control-label"></label>
-                <input asp-for="RoleID" class="form-control" />
-                <span asp-validation-for="RoleID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PhoneNumber" class="control-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" />
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Account" class="control-label"></label>
-                <input asp-for="Account" class="form-control" />
-                <span asp-validation-for="Account" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" />
-                <span asp-validation-for="Status" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>*@
-
-
-
-
-
 <section class="vh-100 bg-image">
     <div class="mask d-flex align-items-center h-100 gradient-custom-3">
         <div class="container h-100">
@@ -83,11 +18,7 @@
                                 </h2>
                                 <div class ="row align-items-start">
                                     <div class="col-6">
-                                        <div class="form-outline mb-4">
-                                            <label asp-for="RoleID" class="control-label"></label>
-                                            @Html.DropDownListFor(model => model.RoleID, ViewBag.Role as SelectList, "--Select role--", new { @class = "form-control" })
-                                            <span asp-validation-for="RoleID" class="text-danger"></span>
-                                        </div>
+                                        
                                         <div class="form-outline mb-4">
                                             <label asp-for="FirstName" class="control-label"></label>
                                             <input asp-for="FirstName" class="form-control form-control-lg" />
@@ -100,20 +31,33 @@
                                             <label asp-for="Address" class="control-label"></label>
                                             <input asp-for="Address" class="form-control form-control-lg" />
                                         </div>
-                                    </div>
-                                    <div class="col-6">
                                         <div class="form-outline mb-4">
                                             <label asp-for="PhoneNumber" class="control-label"></label>
                                             <input asp-for="PhoneNumber" class="form-control form-control-lg" />
                                         </div>
+                                    </div>
+                                    <div class="col-6">
+                                        
                                         <div class="form-outline mb-4">
                                             <label asp-for="Email" class="control-label"></label>
                                             <input asp-for="Email" class="form-control form-control-lg" />
+                                            @if (TempData["email"] != null)
+                                            {
+                                                <div id="email" class="alert @TempData["AlertType"] hide" role="alert" style="color:red">
+                                            @TempData["email"]
+                                            </div>
+                                            }
                                         </div>
                                         <div class="form-outline mb-4">
                                             <label asp-for="Account" class="control-label"></label>
                                             <input asp-for="Account" class="form-control form-control-lg" />
                                             <span asp-validation-for="Account" class="text-danger"></span>
+                                            @if (TempData["acc"] != null)
+                                            {
+                                            <div id="acc" class="alert @TempData["AlertType"] hide" role="alert" style="color:red">
+                                            @TempData["acc"]
+                                            </div>
+                                            }
                                         </div>
                                         <div class="form-outline mb-4">
                                             <label asp-for="Password" class="control-label"></label>
@@ -127,19 +71,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                
-                                @*<div class="form-outline mb-4">
-                                <input type="password" id="form3Example4cg" class="form-control form-control-lg" />
-                                <label class="form-label" for="form3Example4cg">Mật khẩu</label>
-                                </div>
 
-                                <div class="form-outline mb-4">
+                                @*<div class="form-outline mb-4">
                                 <input type="password" id="form3Example4cdg" class="form-control form-control-lg" />
                                 <label class="form-label" for="form3Example4cdg">Nhập lại mật khẩu</label>
                                 </div>*@
 
                                 <div class="form-check d-flex justify-content-center mb-5">
-                                    <input class="form-check-input me-2" type="checkbox" value=""
+                                    <input class="form-check-input me-2" type="checkbox" value="false"
                                            id="form2Example3cg" />
                                     <label class="form-check-label" for="form2Example3g" style="font-size: 20px;">
                                         I agree all statements in <a href="#!" class="text-body">
@@ -153,9 +92,8 @@
                                 </div>
 
                                 <p class="text-center text-muted mt-5 mb-0" style="font-size: 20px;">
-                                    Đã có tài
-                                    khoản? <a href="#login" class="fw-bold text-body">
-                                        <u style="color: #0d6efd; text-decoration: none;">Login here</u>
+                                    Đã có tài khoản? <a asp-controller="Account" asp-action="Login" class="text-dark-50 fw-bold">
+                                        Login here
                                     </a>
                                 </p>
 
@@ -168,3 +106,16 @@
     </div>
 </section>
 
+@section Scripts {
+    <script>
+        $(function () {
+            $('#email').removeClass('hide');
+            $('#email').delay(2000).slideUp(500);
+        });
+        $(function () {
+            $('#acc').removeClass('hide');
+            $('#acc').delay(2000).slideUp(500);
+        });
+
+    </script>
+}

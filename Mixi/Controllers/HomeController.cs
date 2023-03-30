@@ -168,7 +168,7 @@ namespace Mixi.Controllers
             else
             {
                 //return Content("bạn cần phải đăng nhập với quyền admin");
-                TempData["error"] = "Bạn cần phải đăng nhập với quyền admin";
+                TempData["role"] = "Bạn cần phải đăng nhập với quyền admin";
                 return Redirect("index");
             }
             //return View(lists);
@@ -176,7 +176,6 @@ namespace Mixi.Controllers
             //List<Product> products = productServices.GetAllProduct();
             //return View(products);
         }
-
 
         public IActionResult Details(Guid id)
         {

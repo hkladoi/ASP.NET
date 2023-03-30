@@ -88,10 +88,11 @@
                 </div>
                 <div>
                     <button class="btn btn-outline-dark" style="margin-right: 20px;">Mua ngay</button>
-                <button class="btn btn-dark" style="background-color: rgb(3, 182, 242);">Thêm vào giỏ hàng</button>
+                    
+                <button class="btn btn-dark" style="background-color: rgb(3, 182, 242);" >@Html.ActionLink("Thêm vào giỏ hàng", "AddToCart","Cart", new {  id = Model.ProductID  }) </button>
                 </div>
                 <p style="font-size: 15px; margin-top:10px">
-                Danh mục:<a style="text-decoration: none; color: rgb(3, 182, 242);">@Html.DisplayFor(model => model.Category.Name)</a>
+                Danh mục:<a style="text-decoration: none; color: rgb(3, 182, 242);">@Html.ActionLink(Model.Category.Name,"ShowProductByCategory",new{@id=Model.CategoryID })</a>
             </p>
             </div>
             <hr>
