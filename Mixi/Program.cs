@@ -17,7 +17,7 @@ builder.Services.AddTransient<IImageServices, ImageServices>();
 //khai bao session voi thoi gian timeout laf 30
 builder.Services.AddSession(Options =>
 {
-    Options.IdleTimeout = TimeSpan.FromSeconds(50);
+    Options.IdleTimeout = TimeSpan.FromSeconds(20);
 });
 var app = builder.Build();
 

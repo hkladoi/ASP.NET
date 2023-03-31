@@ -26,52 +26,106 @@ namespace Mixi.Controllers
         }
         public IActionResult AddToCart(Guid id)
         {
-            //lấy dữ liệu
             var product = productServices.GetProductById(id);
-            var colorName = mixiDbContext.Colors.Where(c => c.ColorID == product.ColorID).Select(c => c.Name).FirstOrDefault();
-            var productViewModel = new ProductCategoryViewModel
-            {
-                ProductID = product.ProductID,
-                Name = product.Name,
-                Price = product.Price,
-                ProductCode = product.ProductCode,
-                SalePrice = product.SalePrice,
-                AvailableQuantity = product.AvailableQuantity,
-                Status = product.Status,
-                Supplier = product.Supplier,
-                Description = product.Description,
-                CategoryID = product.CategoryID,
-                SizeID = product.SizeID,
-                ImageID = product.ImageID,
-                ColorID = product.ColorID,
-                ColorName = colorName
-            };
+            var colorName = mixiDbContext.Colors
+                .Where(c => c.ColorID == product.ColorID)
+                .Select(c => c.Name)
+                .FirstOrDefault();
+            var categoryName = mixiDbContext.Categories
+                .Where(c => c.CategoryID == product.CategoryID)
+                .Select(c => c.Name)
+                .FirstOrDefault();
+            var sizeName = mixiDbContext.Sizes
+                .Where(c => c.SizeID == product.SizeID)
+                .Select(c => c.Name)
+                .FirstOrDefault();
+            var Image = mixiDbContext.Images
+                .Where(c => c.ImageID == product.ImageID)
+                .Select(c => c.Name)
+                .FirstOrDefault();
+
             //lấy dữ liệu cart session
             var products = SessionServices.GetObjFomSession(HttpContext.Session, "Cart");
-            //kiểm tra dữ liệu
-            if (products.Count == 0)
+            var existingProduct = products.FirstOrDefault(x => x.ProductID == id);
+            if (existingProduct != null)
             {
-                products.Add(product);
-                //gắn giá trị vào session
-                SessionServices.SetObjToSession(HttpContext.Session, "Cart", products);
-            }
-            else
-            {
-                if (SessionServices.CheckObjInList(id, products))
+                //Kiểm tra số lượng vs số lượng tồn
+                if (existingProduct.Quantity == product.AvailableQuantity)
                 {
-                    return Content("có rồi");
+                    TempData["quantity"] = "Số lượng bạn chọn đã đạt mức tối đa của sản phẩm này";
+                    existingProduct.Quantity = product.AvailableQuantity;
                 }
                 else
                 {
-                    products.Add(product);
-                    //chưa có sản phẩm thì thêm
-                    SessionServices.SetObjToSession(HttpContext.Session, "Cart", products);
+                    // Nếu sản phẩm đã có trong giỏ hàng thì tăng số lượng lên 1
+                    existingProduct.Quantity += 1;
                 }
             }
+            else
+            {
+                // Nếu chưa có thì thêm sản phẩm vào giỏ hàng
+                var cart = new CartViewModel()
+                {
+                    ProductID = product.ProductID,
+                    Name = product.Name,
+                    Price = product.Price,
+                    ProductCode = product.ProductCode,
+                    SalePrice = product.SalePrice,
+                    ColorName = colorName,
+                    CategoryName = categoryName,
+                    SizeName = sizeName,
+                    Image = Image,
+                    Quantity = 1
+                };
+                products.Add(cart);
+            }
+
+            //gắn giá trị vào session
+            SessionServices.SetObjToSession(HttpContext.Session, "Cart", products);
             return RedirectToAction("ShowCart");
+            //int quantity = 1;
+            //if (SessionServices.CheckObjInList(id, products))
+            //{
+            //    quantity = products.First(x => x.ProductID == id).Quantity + 1;
+            //}
+            //var cart = new CartViewModel()
+            //{
+            //    ProductID = product.ProductID,
+            //    Name = product.Name,
+            //    Price = product.Price,
+            //    ProductCode = product.ProductCode,
+            //    SalePrice = product.SalePrice,
+            //    ColorName = colorName,
+            //    CategoryName = categoryName,
+            //    SizeName = sizeName,
+            //    Image = Image,
+            //    Quantity = 1
+            //};
+            ////kiểm tra dữ liệu
+            //if (products.Count == 0)
+            //{
+            //    products.Add(cart);
+            //    //gắn giá trị vào session
+            //    SessionServices.SetObjToSession(HttpContext.Session, "Cart", products);
+            //}
+            //else
+            //{
+            //    if (SessionServices.CheckObjInList(id, products))
+            //    {
+            //        return Content("có rồi");
+            //    }
+            //    else
+            //    {
+            //        products.Add(cart);
+            //        //chưa có sản phẩm thì thêm
+            //        SessionServices.SetObjToSession(HttpContext.Session, "Cart", products);
+            //    }
+            //}
+            //return RedirectToAction("ShowCart");
         }
         public IActionResult ShowCart()
         {
+
             var products = SessionServices.GetObjFomSession(HttpContext.Session, "Cart");
             return View(products);
         }
