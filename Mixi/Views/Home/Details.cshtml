@@ -72,7 +72,14 @@
                 hàng)
             </a><br>
             <h5 style="padding-top: 10px; font-weight: bold; font-size: 30px;">
-                @string.Format("{0:N0}đ", Model.Price)
+                @if (Model.SalePrice > 0)
+                        {
+                            <del style="color:gray">@string.Format("{0:N0}đ", Model.Price)</del>@string.Format("{0:N0}đ", Model.SalePrice);
+                        }
+                        else
+                        {
+                            @string.Format("{0:N0}đ", Model.Price);
+                        }
             </h5>
             <a style="text-decoration: none; color:gray">
                 BẢNG SIZE CHI TIẾT:
@@ -83,28 +90,27 @@
                 <p style="height:36,8px">Số lượng </p>
                
                 <button class="btn btn-link px-2"
-                        onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                        onclick="decreaseQuantity()">
                     <i class="fas fa-minus"></i>
                 </button>
-                <input id="form1" min="0" name="quantity" value="1" type="number"
+                <input id="quantity-input" min="0" name="quantity" value="1" type="number"
                        class="form-control form-control-sm" style="width: 50px; height:10px" />
-
                 <button class="btn btn-link px-2"
-                        onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                        onclick="increaseQuantity()">
                     <i class="fas fa-plus"></i>
-                </button
+                </button>
                 <div>
                     <p>@Html.DisplayFor(model => model.AvailableQuantity) Sản phẩm có sẵn</p>
                 </div>
-                <div>
-                    <button class="btn btn-outline-dark" style="margin-right: 20px;">Mua ngay</button>
-                    
-                <button class="btn btn-dark" style="background-color: rgb(3, 182, 242);" >@Html.ActionLink("Thêm vào giỏ hàng", "AddToCart","Cart", new {  id = Model.ProductID  }) </button>
-                </div>
-                <p style="font-size: 15px; margin-top:10px">
-                Danh mục:<a style="text-decoration: none; color: rgb(3, 182, 242);">@Html.ActionLink(Model.Category.Name,"ShowProductByCategory",new{@id=Model.CategoryID })</a>
+                
             </p>
             </div>
+            <div>
+                <button class="btn btn-outline-dark" style="margin-right: 20px;">Mua ngay</button>
+                <button class="btn btn-dark" style="background-color: rgb(3, 182, 242);">@Html.ActionLink("Thêm vào giỏ hàng", "AddToCart","Cart", new {  id = Model.ProductID  }) </button>
+            </div>
+            <p style="font-size: 15px; margin-top:10px">
+                Danh mục:<a style="text-decoration: none; color: rgb(3, 182, 242);">@Html.ActionLink(Model.Category.Name,"ShowProductByCategory",new{@id=Model.CategoryID })</a>
             <hr>
         </div>
     </div>
@@ -353,4 +359,3 @@
         </div>
     </div>
 </div>
-

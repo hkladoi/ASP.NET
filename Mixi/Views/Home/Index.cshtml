@@ -61,7 +61,16 @@
                     </p>
                     @Html.ActionLink(item.Name, "Details", new {  id=item.ProductID  }) <br>
                     <img src="~/Image/stars4.png" alt="" width="100px"><br>
-                    <h5>@string.Format("{0:N0}đ", item.Price)</h5> <br>
+                    <h5>
+                        @if (item.SalePrice > 0)
+                        {
+                            <del style="color:gray">@string.Format("{0:N0}đ", item.Price)</del> @string.Format("{0:N0}đ", item.SalePrice);
+                        }
+                        else
+                        {
+                            @string.Format("{0:N0}đ", item.Price);
+                        }
+                    </h5> <br>
                 </div>
             }
         </div>

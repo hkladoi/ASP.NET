@@ -4,88 +4,182 @@
     ViewData["Title"] = "ShowCart";
     ViewBag.Title = "ShowCart";
     ViewBag.ShowBanner = false;
+    var totalPrice =(decimal)ViewData["totalPrice"];
 }
 
-<h1>ShowCart</h1>
+<section class="h-100 h-custom">
+    <div class="container h-100 py-5">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="h5">GIỎ HÀNG</th>
+                                <th scope="col">Thể loại</th>
+                                <th scope="col">Số lượng</th>
+                                <th scope="col">Tạm tính</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <th scope="row">
+                                        <div class="d-flex align-items-center">
+                                            <img src="@item.Image" class="img-fluid rounded-3"
+                                                 style="width: 120px;">
+                                            <div class="flex-column ms-4">
+                                                <p class="mb-2"><a href="chitietsp.html" style="text-decoration: none; font-size: 15px;">@Html.ActionLink(item.Name, "Details","Home", new {  id=item.ProductID  })</a></p>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductCode)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SalePrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CategoryName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ColorName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SizeName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Image)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Quantity)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SalePrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CategoryName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ColorName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SizeName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Image)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <td class="align-middle">
+                                        <p class="mb-0" style="font-weight: 500;font-size: 15px;">@item.CategoryName</p>
+                                    </td>
+                                    <td class="align-middle">
+                                        <div class="d-flex flex-row">
+                                            <button class="btn btn-link px-2"
+                                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                                <i class="fas fa-minus"></i>
+                                            </button>
+
+                                            <input id="form1" min="0" name="quantity" value="@item.Quantity" type="number"
+                                                   class="form-control form-control-sm" style="width: 50px;" />
+
+                                            <button class="btn btn-link px-2"
+                                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle">
+                                        <p class="mb-0" style="font-weight: 500;font-size: 15px;">
+                                            @if (item.SalePrice>0)
+                                            {
+
+                                                <del style="color:gray">@string.Format("{0:N0}đ", item.Price)</del><br />
+                                                @string.Format("{0:N0}đ", item.SalePrice);
+                                            }else
+                                            {
+                                                @string.Format("{0:N0}đ", item.Price);
+                                            }
+                                            </p>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card shadow-2-strong mb-5 mb-lg-0" style="border-radius: 16px;">
+                    <div class="card-body p-4">
+
+                        <div class="row">
+                            <div class="col-md-6 col-lg-4 col-xl-3 mb-4 mb-md-0">
+                                <form>
+                                    <div class="d-flex flex-row pb-3">
+                                        <div class="d-flex align-items-center pe-2">
+                                            <input class="form-check-input" type="radio" name="radioNoLabel"
+                                                   id="radioNoLabel1v" value="" aria-label="..." checked />
+                                        </div>
+                                        <div class="rounded border w-100 p-3">
+                                            <p class="d-flex align-items-center mb-0" style="font-size: 15px;">
+                                                <i class="fab fa-cc-mastercard fa-2x text-dark pe-2"> <img src="~/Image/credit-card (1).png" width="30px" alt=""></i>Thẻ Tín dụng/Ghi nợ
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-row pb-3">
+                                        <div class="d-flex align-items-center pe-2">
+                                            <input class="form-check-input" type="radio" name="radioNoLabel"
+                                                   id="radioNoLabel2v" value="" aria-label="..." />
+                                        </div>
+                                        <div class="rounded border w-100 p-3">
+                                            <p class="d-flex align-items-center mb-0" style="font-size: 15px;">
+                                                <i class="fab fa-cc-visa fa-2x fa-lg text-dark pe-2"> <img src="~/Image/momo.png" width="30px" alt=""></i>Momo
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-row">
+                                        <div class="d-flex align-items-center pe-2">
+                                            <input class="form-check-input" type="radio" name="radioNoLabel"
+                                                   id="radioNoLabel3v" value="" aria-label="..." />
+                                        </div>
+                                        <div class="rounded border w-100 p-3">
+                                            <p class="d-flex align-items-center mb-0" style="font-size: 15px;">
+                                                <i class="fab fa-cc-paypal fa-2x fa-lg text-dark pe-2"><img src="~/Image/cash-on-delivery.png" width="30px" alt=""></i>COD
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                            <div class="col-md-6 col-lg-4 col-xl-6">
+                                <div class="row">
+                                    <div class="col-12 col-xl-6">
+                                        <div class="form-outline mb-4 mb-xl-5">
+                                            <input type="text" id="typeName" class="form-control form-control-lg"
+                                                   siez="17" placeholder="Họ và Tên" />
+                                        </div>
+
+                                        <div class="form-outline mb-4 mb-xl-5">
+                                            <input type="text" id="typeExp" class="form-control form-control-lg"
+                                                   placeholder="SĐT" size="7" minlength="10" maxlength="10" />
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-xl-6">
+                                        <div class="form-outline mb-4 mb-xl-5">
+                                            <input type="email" id="typeText" class="form-control form-control-lg"
+                                                   siez="17" placeholder="Email" />
+                                        </div>
+
+                                        <div class="form-outline mb-4 mb-xl-5">
+                                            <input type="text" id="typeText"
+                                                   class="form-control form-control-lg"
+                                                   placeholder="Địa Chỉ" size="17" />
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-xl-12">
+                                        <div class="form-outline mb-8 mb-xl-10">
+                                            <input type="text" id="typeText" class="form-control form-control-lg"
+                                                   siez="17" placeholder="Ghi chú" style="height: 60px;" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-xl-3">
+                                <div class="d-flex justify-content-between" style="font-weight: 500;">
+                                    <p class="mb-2" style="font-size: 15px;">Tạm tính</p>
+                                    <p class="mb-2" style="font-size: 15px;">@string.Format("{0:N0}đ", totalPrice)</p>
+                                </div>
+
+                                <div class="d-flex justify-content-between" style="font-weight: 500;">
+                                    <p class="mb-0" style="font-size: 15px;">Shipping</p>
+                                    <p class="mb-0" style="font-size: 15px;">0 đ</p>
+                                </div>
+
+                                <hr class="my-4">
+
+                                <div class="d-flex justify-content-between mb-4" style="font-weight: 500;">
+                                    <p class="mb-2" style="font-size: 15px;">Tổng</p>
+                                    <p class="mb-2" style="font-size: 15px;">@string.Format("{0:N0}đ", totalPrice)</p>
+                                </div>
+
+                                <button type="button" class="btn btn-primary btn-block btn-lg">
+                                    <div class="d-flex justify-content-between">
+                                        <span>Thanh toán: </span>
+                                        <span>@string.Format("{0:N0}đ", totalPrice)</span>
+                                    </div>
+                                </button>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
