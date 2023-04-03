@@ -82,9 +82,9 @@ namespace Mixi.Controllers
             }
             else
             {
-                //TempData["AlertMessage"] = "lỗi đm";
-                //return View();
-                return BadRequest();
+                TempData["AlertMessage"] = "Giá giảm không được lớn hơn giá gốc";
+                return View();
+                //return BadRequest();
             }
         }
         public ActionResult Create()//hiển thị
@@ -102,7 +102,11 @@ namespace Mixi.Controllers
             {
                 return RedirectToAction("ShowlistProduct");
             }
-            else return BadRequest();
+            else
+            {
+                TempData["AlertMessage"] = "Giá giảm không được lớn hơn giá gốc";
+                return View();
+            }
         }
         public IActionResult Delete(Guid id)
         {

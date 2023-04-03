@@ -16,10 +16,15 @@ namespace Mixi.Services
         {
             try
             {
-                p.ProductCode = GenerateProductCode();
-                context.Products.Add(p);
-                context.SaveChanges();
-                return true;
+                var product = context.Products.Find(p.ProductID);
+                if (product.SalePrice < p.Price)
+                {
+                    p.ProductCode = GenerateProductCode();
+                    context.Products.Add(p);
+                    context.SaveChanges();
+                    return true;
+                }
+                else return false;
             }
             catch (Exception)
             {
@@ -72,8 +77,8 @@ namespace Mixi.Services
             try
             {
                 var product = context.Products.Find(p.ProductID);
-                //if (product.Price > p.Price)
-                //{
+                if (product.SalePrice < p.Price)
+                {
                     product.ColorID = p.ColorID;
                     product.CategoryID = p.CategoryID;
                     product.SizeID = p.SizeID;
@@ -89,8 +94,8 @@ namespace Mixi.Services
                     context.Products.Update(product);
                     context.SaveChanges();
                     return true;
-                //}
-                //else return false;
+                }
+                else return false;
 
             }
             catch (Exception)

@@ -26,7 +26,6 @@ namespace Mixi.Controllers
         }
         public IActionResult Login()
         {
-            TempData["Login"] = "Chào mừng " + HttpContext.Session.GetString("name");
             return View();
         }
         [HttpPost]
@@ -53,7 +52,9 @@ namespace Mixi.Controllers
         }
         public ActionResult Logout()
         {
-            HttpContext.Session.Clear();
+            HttpContext.Session.Remove("acc");
+            HttpContext.Session.Remove("role");
+            HttpContext.Session.Remove("name");
             return RedirectToAction("Login");
         }
         public IActionResult Register()

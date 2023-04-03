@@ -59,16 +59,17 @@
                         @item.Category.Name
                         @*@Html.ActionLink(item.Category.Name, "Show", new {  @id=item.CategoryID  })*@
                     </p>
-                    @Html.ActionLink(item.Name, "Details", new {  id=item.ProductID  }) <br>
+                    @Html.ActionLink(item.Name+"-"+item.Color.Name+"-"+item.Size.Name, "Details", new {  id=item.ProductID  }) <br>
                     <img src="~/Image/stars4.png" alt="" width="100px"><br>
                     <h5>
                         @if (item.SalePrice > 0)
                         {
-                            <del style="color:gray">@string.Format("{0:N0}đ", item.Price)</del> @string.Format("{0:N0}đ", item.SalePrice);
+                            <del style="color:gray">@string.Format("{0:N0}đ", item.Price)</del> @string.Format("{0:N0}đ",item.Price- item.SalePrice);
                         }
                         else
                         {
-                            @string.Format("{0:N0}đ", item.Price);
+                            @string.Format("{0:N0}đ", item.Price)
+                            ;
                         }
                     </h5> <br>
                 </div>

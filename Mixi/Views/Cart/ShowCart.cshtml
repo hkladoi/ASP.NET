@@ -17,6 +17,7 @@
                             <tr>
                                 <th scope="col" class="h5">GIỎ HÀNG</th>
                                 <th scope="col">Thể loại</th>
+                                <th scope="col">Giá bán</th>
                                 <th scope="col">Số lượng</th>
                                 <th scope="col">Tạm tính</th>
                             </tr>
@@ -30,13 +31,31 @@
                                             <img src="@item.Image" class="img-fluid rounded-3"
                                                  style="width: 120px;">
                                             <div class="flex-column ms-4">
-                                                <p class="mb-2"><a href="chitietsp.html" style="text-decoration: none; font-size: 15px;">@Html.ActionLink(item.Name, "Details","Home", new {  id=item.ProductID  })</a></p>
+                                                <p class="mb-2"><a href="chitietsp.html" style="text-decoration: none; font-size: 15px;">@Html.ActionLink(item.Name+"-"+item.ColorName+"-"+item.SizeName, "Details","Home", new {  id=item.ProductID  })</a></p>
 
                                             </div>
                                         </div>
                                     </th>
                                     <td class="align-middle">
                                         <p class="mb-0" style="font-weight: 500;font-size: 15px;">@item.CategoryName</p>
+                                    </td>
+                                    <td class="align-middle">
+                                        <p class="mb-0" style="font-weight: 500;font-size: 15px;">
+                                            @if (item.SalePrice > 0)
+                                            {
+
+                                                <del style="color:gray">@string.Format("{0:N0}đ", item.Price)</del>
+
+                                                <br />
+                                                @string.Format("{0:N0}đ",item.Price-item.SalePrice)
+                                                ;
+                                            }
+                                            else
+                                            {
+                                                @string.Format("{0:N0}đ", item.Price)
+                                                ;
+                                            }
+                                        </p>
                                     </td>
                                     <td class="align-middle">
                                         <div class="d-flex flex-row">
@@ -58,12 +77,12 @@
                                         <p class="mb-0" style="font-weight: 500;font-size: 15px;">
                                             @if (item.SalePrice>0)
                                             {
-
-                                                <del style="color:gray">@string.Format("{0:N0}đ", item.Price)</del><br />
-                                                @string.Format("{0:N0}đ", item.SalePrice);
+                                                @string.Format("{0:N0}đ",(item.Price-item.SalePrice)*item.Quantity)
+                                                ;
                                             }else
                                             {
-                                                @string.Format("{0:N0}đ", item.Price);
+                                                @string.Format("{0:N0}đ", item.Price*item.Quantity)
+                                                ;
                                             }
                                             </p>
                                     </td>

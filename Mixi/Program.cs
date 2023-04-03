@@ -18,7 +18,7 @@ builder.Services.AddTransient<IImageServices, ImageServices>();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(Options =>
 {
-    Options.IdleTimeout = TimeSpan.FromMinutes(20);
+    Options.IdleTimeout = TimeSpan.FromDays(20);
 });
 var app = builder.Build();
 

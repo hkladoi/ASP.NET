@@ -20,35 +20,31 @@ namespace Mixi.Controllers
         private readonly ILogger<CartController> _logger;
         private readonly MixiDbContext mixiDbContext;
         private readonly IProductServices productServices;
+        private readonly IColorServices colorServices;
+        private readonly ICategoryServices categoryServices;
+        private readonly IImageServices imageServices;
+        private readonly ISizeServices sizeServices;
         public CartController(ILogger<CartController> logger)
         {
             _logger = logger;
             mixiDbContext = new MixiDbContext();
             productServices = new ProductServices();
+            colorServices = new ColorServices();
+            categoryServices = new CategoryServices();
+            imageServices = new ImageServices();
+            sizeServices = new SizeServices();
         }
-        public IActionResult AddToCart(Guid id, CartViewModel model)
+        //[HttpPost]
+        public IActionResult AddToCart(Guid id, int quantity)
         {
             var product = productServices.GetProductById(id);
-            var colorName = mixiDbContext.Colors
-                .Where(c => c.ColorID == product.ColorID)
-                .Select(c => c.Name)
-                .FirstOrDefault();
-            var categoryName = mixiDbContext.Categories
-                .Where(c => c.CategoryID == product.CategoryID)
-                .Select(c => c.Name)
-                .FirstOrDefault();
-            var sizeName = mixiDbContext.Sizes
-                .Where(c => c.SizeID == product.SizeID)
-                .Select(c => c.Name)
-                .FirstOrDefault();
-            var Image = mixiDbContext.Images
-                .Where(c => c.ImageID == product.ImageID)
-                .Select(c => c.LinkImage)
-                .FirstOrDefault();
+            var colorName = colorServices.GetAllColor().Where(c => c.ColorID == product.ColorID).Select(c => c.Name).FirstOrDefault();
+            var categoryName = categoryServices.GetAllCategory().Where(c => c.CategoryID == product.CategoryID).Select(c => c.Name).FirstOrDefault();
+            var sizeName = sizeServices.GetAllSize().Where(c => c.SizeID == product.SizeID).Select(c => c.Name).FirstOrDefault();
+            var Image = imageServices.GetAllImage().Where(c => c.ImageID == product.ImageID).Select(c => c.LinkImage).FirstOrDefault();
 
             //lấy dữ liệu cart session
             var products = SessionServices.GetObjFomSession(HttpContext.Session, "Cart");
-            var a = model.Quantity;
             var existingProduct = products.FirstOrDefault(x => x.ProductID == id);
             if (existingProduct != null)
             {
@@ -85,12 +81,15 @@ namespace Mixi.Controllers
             //gắn giá trị vào session
             SessionServices.SetObjToSession(HttpContext.Session, "Cart", products);
             return RedirectToAction("Details", "Home", new { id = product.ProductID });
+            //return Ok();
+            //return Json(new { success = true });
+
         }
         public IActionResult ShowCart()
         {
 
             var products = SessionServices.GetObjFomSession(HttpContext.Session, "Cart");
-            decimal totalPrice = products.Sum(x => x.SalePrice > 0 ? (x.Price - (x.Price - x.SalePrice)) * x.Quantity : x.Price * x.Quantity);
+            decimal totalPrice = products.Sum(x => x.SalePrice > 0 ? (x.Price - x.SalePrice) * x.Quantity : x.Price * x.Quantity);
             ViewData["totalPrice"] = totalPrice;
             return View(products);
         }
