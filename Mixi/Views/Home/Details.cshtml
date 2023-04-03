@@ -86,14 +86,16 @@
             </a><br>
             <img src="~/Image/size.jpg" alt="" width="100%" style="padding-bottom: 10px;"><br>
             <p style="font-weight: bold; color: rgb(29, 255, 90); font-size: 15px;">Còn hàng</p>
+            <form method="post" asp-action="AddToCart" asp-controller="Cart">
+                <input type="hidden" name="ProductID" value="@Model.ProductID" />
                 <div class="d-flex flex-row" style="display:inline-flex">
                     <p style="height:36,8px">Số lượng </p>
                     <button class="btn btn-link px-2"
                             onclick="decreaseQuantity()">
                         <i class="fas fa-minus"></i>
                     </button>
-                    <input id="quantity-input" min="0" name="quantity" value="1" type="number"
-                           class="form-control form-control-sm" style="width: 50px; height:10px" />
+                    <input id="quantity-input" min="0" max="@Model.AvailableQuantity" name="quantity" value="1" type="number"
+                           class="form-control form-control-sm" style="width: 60px; height:10px" />
                     <button class="btn btn-link px-2"
                             onclick="increaseQuantity()">
                         <i class="fas fa-plus"></i>
@@ -106,12 +108,11 @@
                 </div>
                 <div>
                     <button class="btn btn-outline-dark" style="margin-right: 20px;">Mua ngay</button>
-                <button class="btn btn-dark" style="background-color: rgb(3, 182, 242);" id="addToCart" data-guid="@Model.ProductID">@Html.ActionLink("Thêm vào giỏ hàng","AddToCart","Cart",new{id=Model.ProductID })</button>
-                                            @*@Html.ActionLink("Thêm vào giỏ hàng","AddToCart","Cart",new{id=Model.ProductID })*@
-            </div>
-                <p style="font-size: 15px; margin-top:10px">
-                    Danh mục:<a style="text-decoration: none; color: rgb(3, 182, 242);">@Html.ActionLink(Model.Category.Name,"ShowProductByCategory",new{id=Model.CategoryID })</a>
-
+                    <button class="btn btn-dark" style="background-color: rgb(3, 182, 242);">Thêm vào giỏ hàng</button>
+                </div>
+               </form>
+            <p style="font-size: 15px; margin-top:10px">
+            Danh mục:<a style="text-decoration: none; color: rgb(3, 182, 242);">@Html.ActionLink(Model.Category.Name,"ShowProductByCategory",new{id=Model.CategoryID })</a>
             <hr>
         </div>
     </div>
