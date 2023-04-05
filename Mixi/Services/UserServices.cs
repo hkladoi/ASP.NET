@@ -81,7 +81,7 @@ namespace Mixi.Services
 
         public List<User> GetUserByName(string name)
         {
-            return _dbContext.Users.Where(c => c.FirstName.Contains(name)).ToList();
+            return _dbContext.Users.Where(c => c.Account.Contains(name)).ToList();
         }
 
         public bool UpdateUser(User u)

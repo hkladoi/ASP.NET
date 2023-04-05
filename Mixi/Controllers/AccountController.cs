@@ -16,20 +16,23 @@ namespace Mixi.Controllers
         private readonly MixiDbContext mixiDbContext;
         private readonly IUserServices userServices;
         private readonly IRoleServices roleServices;
-
+        private readonly ICartServices cartServices;
+        private readonly ICartDetailServices cartDetailServices;
         public AccountController(ILogger<AccountController> logger)
         {
             _logger = logger;
             mixiDbContext = new MixiDbContext();
             userServices = new UserServices();
             roleServices = new RoleServices();
+            cartServices = new CartServices();
+            cartDetailServices = new CartDetailServices();
         }
         public IActionResult Login()
         {
             return View();
         }
         [HttpPost]
-        public ActionResult Login(string account, string password)
+        public ActionResult Login(string account, string password, Guid id)
         {
             //if (ModelState.IsValid)
             //{
@@ -41,14 +44,17 @@ namespace Mixi.Controllers
                 HttpContext.Session.SetString("role", data.Roles.RoleName);
                 HttpContext.Session.SetString("name", data.FirstName + " " + data.LastName);
                 TempData["Login"] = "Chào mừng " + HttpContext.Session.GetString("name");
+                List<CartDetail> cartDetails = cartDetailServices.GetAllCartDetail().Where(x => x.UserID == data.UserID).ToList();
+                string itemCount = cartDetails.Count().ToString();
+                HttpContext.Session.SetString("itemCount", itemCount);
                 return RedirectToAction("Index", "Home");
+
             }
             else
             {
+                TempData["Wrong"] = "Thông tin tài khoản không chính xác";
                 return RedirectToAction("Login");
             }
-            //}
-            //return View();
         }
         public ActionResult Logout()
         {

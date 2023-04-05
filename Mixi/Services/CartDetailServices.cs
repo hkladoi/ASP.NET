@@ -1,4 +1,5 @@
-﻿using Mixi.IServices;
+﻿using Microsoft.EntityFrameworkCore;
+using Mixi.IServices;
 using Mixi.Models;
 
 namespace Mixi.Services
@@ -43,7 +44,11 @@ namespace Mixi.Services
 
         public List<CartDetail> GetAllCartDetail()
         {
-            return _dbContext.CartDetails.ToList();
+            return _dbContext.CartDetails.Include(cd => cd.Product).ThenInclude(p => p.Color)
+                .Include(cd => cd.Product).ThenInclude(p => p.Size)
+                .Include(cd => cd.Product).ThenInclude(p => p.Images)
+                .Include(cd => cd.Product).ThenInclude(p => p.Category)
+                .ToList();
         }
 
         public CartDetail GetCartDetailById(Guid id)

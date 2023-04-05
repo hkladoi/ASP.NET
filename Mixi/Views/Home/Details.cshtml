@@ -4,12 +4,24 @@
     ViewData["Title"] = "Details";
     ViewBag.Title = "Details";
     ViewBag.ShowBanner = false;
+    var acc = Context.Session.GetString("acc");
 }
 @if (TempData["quantity"] != null)
 {
     <script>
         Swal.fire({
             title: '@TempData["quantity"]',
+            icon: 'error',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    </script>
+}
+@if (TempData["quantityCartUser"] != null)
+{
+    <script>
+        Swal.fire({
+            title: '@TempData["quantityCartUser"]',
             icon: 'error',
             showConfirmButton: false,
             timer: 1500
@@ -86,31 +98,58 @@
             </a><br>
             <img src="~/Image/size.jpg" alt="" width="100%" style="padding-bottom: 10px;"><br>
             <p style="font-weight: bold; color: rgb(29, 255, 90); font-size: 15px;">Còn hàng</p>
-            <form method="post" asp-action="AddToCart" asp-controller="Cart">
-                <input type="hidden" name="ProductID" value="@Model.ProductID" />
-                <div class="d-flex flex-row" style="display:inline-flex">
-                    <p style="height:36,8px">Số lượng </p>
-                    <button class="btn btn-link px-2"
-                            onclick="decreaseQuantity()">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                    <input id="quantity-input" min="0" max="@Model.AvailableQuantity" name="quantity" value="1" type="number"
-                           class="form-control form-control-sm" style="width: 60px; height:10px" />
-                    <button class="btn btn-link px-2"
-                            onclick="increaseQuantity()">
-                        <i class="fas fa-plus"></i>
-                    </button>
-                    <div>
-                        <p>@Html.DisplayFor(model => model.AvailableQuantity) Sản phẩm có sẵn</p>
+            @if (acc == null)
+            {
+                <form method="post" asp-action="AddToCart" asp-controller="Cart">
+                    <input type="hidden" name="ProductID" value="@Model.ProductID" />
+                    <div class="d-flex flex-row" style="display:inline-flex">
+                        <p style="height:36,8px">Số lượng </p>
+                        <button class="btn btn-link px-2"
+                                onclick="decreaseQuantity()">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <input id="quantity-input" min="0" max="@Model.AvailableQuantity" name="quantity" value="1" type="number"
+                               class="form-control form-control-sm" style="width: 60px; height:10px" />
+                        <button class="btn btn-link px-2"
+                                onclick="increaseQuantity()">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <div>
+                            <p>@Html.DisplayFor(model => model.AvailableQuantity) Sản phẩm có sẵn</p>
+                        </div>
                     </div>
-
-                    </p>
-                </div>
-                <div>
-                    <button class="btn btn-outline-dark" style="margin-right: 20px;">Mua ngay</button>
-                    <button class="btn btn-dark" style="background-color: rgb(3, 182, 242);">Thêm vào giỏ hàng</button>
-                </div>
-               </form>
+                    <div>
+                        <button class="btn btn-outline-dark" style="margin-right: 20px;">Mua ngay</button>
+                        <button class="btn btn-dark" style="background-color: rgb(3, 182, 242);">Thêm vào giỏ hàng</button>
+                    </div>
+                </form>
+            }
+            @if(acc!=null)
+            {
+                <form method="post" asp-action="AddToCartUser" asp-controller="Cart">
+                    <input type="hidden" name="ProductID" value="@Model.ProductID" />
+                    <div class="d-flex flex-row" style="display:inline-flex">
+                        <p style="height:36,8px">Số lượng </p>
+                        <button class="btn btn-link px-2"
+                                onclick="decreaseQuantity()">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <input id="quantity-input" min="0" max="@Model.AvailableQuantity" name="quantity" value="1" type="number"
+                               class="form-control form-control-sm" style="width: 60px; height:10px" />
+                        <button class="btn btn-link px-2"
+                                onclick="increaseQuantity()">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <div>
+                            <p>@Html.DisplayFor(model => model.AvailableQuantity) Sản phẩm có sẵn</p>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn btn-outline-dark" style="margin-right: 20px;">Mua ngay</button>
+                        <button class="btn btn-dark" style="background-color: rgb(3, 182, 242);">Thêm vào giỏ hàng</button>
+                    </div>
+                </form>
+            }
             <p style="font-size: 15px; margin-top:10px">
             Danh mục:<a style="text-decoration: none; color: rgb(3, 182, 242);">@Html.ActionLink(Model.Category.Name,"ShowProductByCategory",new{id=Model.CategoryID })</a>
             <hr>

@@ -4,7 +4,17 @@
     ViewBag.Title = "Login";
     ViewBag.ShowBanner = false;
 }
-
+@if (TempData["Wrong"] != null)
+{
+    <script>
+        Swal.fire({
+            title: '@TempData["Wrong"]',
+            icon: 'error',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    </script>
+}
 <div class="modal top fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
      data-mdb-backdrop="true" data-mdb-keyboard="true">
     <div class="modal-dialog" style="width: 500px;">

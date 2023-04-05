@@ -10,10 +10,19 @@ namespace Mixi.Services
         {
             _dbContext = new MixiDbContext();
         }
+        public string GenerateBilltCode()
+        {
+            if (_dbContext.Bills.Count() == 0)
+            {
+                return "PAY-1";
+            }
+            else return "PAY-" + _dbContext.Bills.Max(c => Convert.ToInt32(c.BillCode.Substring(4, c.BillCode.Length - 4)) + 1);
+        }
         public bool CreateBill(Bill b)
         {
             try
             {
+                b.BillCode = GenerateBilltCode();
                 _dbContext.Bills.Add(b);
                 _dbContext.SaveChanges();
                 return true;
