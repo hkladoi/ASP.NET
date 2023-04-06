@@ -14,6 +14,5 @@
         public int Quantity { get; set; }
         public int AvailableQuantity { get; set; }
         public decimal totalPrice { get; set; }
-        //changdaden
     }
 }

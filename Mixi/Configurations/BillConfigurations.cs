@@ -16,6 +16,7 @@ namespace Mixi.Configurations
             builder.Property(c => c.Description).HasColumnType("nvarchar(MAX)").IsRequired(false);
             builder.Property(c => c.Status).HasColumnType("int").IsRequired();
             builder.Property(c => c.CreateDate).HasColumnType("Datetime").IsRequired();
+            builder.Property(c => c.TotalPrice).HasColumnType("decimal").IsRequired();
             builder.HasOne(x => x.User).WithMany(y => y.bill).HasForeignKey(c => c.UserID);
         }
     }

@@ -11,6 +11,7 @@
         public string Address { get; set; }
         public string Description { get; set; }
         public int Status { get; set; }
+        public decimal TotalPrice { get; set; }
         public virtual IEnumerable<BillDetail> BillDetails { get; set; }
         public virtual User User { get; set; }
     }

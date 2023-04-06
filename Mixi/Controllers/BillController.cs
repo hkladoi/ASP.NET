@@ -29,7 +29,7 @@ namespace Mixi.Controllers
             billServices = new BillServices();
             billDetailServices = new BillDetailServices();
         }
-        public IActionResult Pay()
+        public IActionResult Pay(string name, string phone, string address, string description)
         {
             var UserID = userServices.GetUserByName(HttpContext.Session.GetString("acc"))[0].UserID;
             var listCartDetails = cartDetailServices.GetAllCartDetail().Where(c => c.UserID == UserID);
@@ -48,11 +48,12 @@ namespace Mixi.Controllers
                         BillID = new Guid(),
                         CreateDate = DateTime.Now,
                         UserID = UserID,
-                        Name = "",
-                        Phone = "",
-                        Address = "",
-                        Description = "",
-                        Status = 0
+                        Name = name,
+                        Phone = phone,
+                        Address = address,
+                        Description =description,
+                        Status = 0,
+                        TotalPrice = listCartDetails.Sum(x => x.Product.SalePrice > 0 ? (x.Product.Price - x.Product.SalePrice) * x.Quantity : x.Product.Price * x.Quantity)
                     };
                     billServices.CreateBill(bill);
                     foreach (var item in listCartDetails)
@@ -81,6 +82,16 @@ namespace Mixi.Controllers
                 TempData["PayError"] = "Thanh toán không thành công";
             }
             return RedirectToAction("ShowCartUser", "Cart");
+        }
+        public IActionResult BillManager()
+        {
+            List<Bill> billList = (billServices.GetAllBill());
+            return View(billList);
+        }
+        public IActionResult BillDetailsManager(Guid id)
+        {
+            List<BillDetail> bills = billDetailServices.GetAllBillDetail().Where(c => c.BillID == id).ToList();
+            return View(bills);
         }
     }
 }

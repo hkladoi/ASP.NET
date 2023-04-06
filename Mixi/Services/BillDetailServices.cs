@@ -1,4 +1,5 @@
-﻿using Mixi.IServices;
+﻿using Microsoft.EntityFrameworkCore;
+using Mixi.IServices;
 using Mixi.Models;
 
 namespace Mixi.Services
@@ -43,7 +44,7 @@ namespace Mixi.Services
 
         public List<BillDetail> GetAllBillDetail()
         {
-            return _dbContext.BillDetails.ToList();
+            return _dbContext.BillDetails.Include("product").ToList();
         }
 
         public BillDetail GetBillDetailById(Guid id)

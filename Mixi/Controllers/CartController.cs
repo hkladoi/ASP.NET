@@ -178,7 +178,7 @@ namespace Mixi.Controllers
             var acc = HttpContext.Session.GetString("acc");
             var IdCart = userServices.GetAllUser().FirstOrDefault(c => c.Account == acc).UserID;
             List<CartDetail> cartDetails = cartDetailServices.GetAllCartDetail().Where(x => x.UserID == IdCart).ToList();
-            decimal totalPrice = cartDetails.Sum(x => x.Product.SalePrice > 0 ? (x.Product.Price - x.Product.SalePrice) * x.Quantity : x.Product.SalePrice * x.Quantity);
+            decimal totalPrice = cartDetails.Sum(x => x.Product.SalePrice > 0 ? (x.Product.Price - x.Product.SalePrice) * x.Quantity : x.Product.Price * x.Quantity);
             ViewData["totalPrice"] = totalPrice;
             return View(cartDetails);
         }
