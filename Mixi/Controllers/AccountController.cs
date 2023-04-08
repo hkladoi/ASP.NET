@@ -45,8 +45,7 @@ namespace Mixi.Controllers
                 HttpContext.Session.SetString("name", data.FirstName + " " + data.LastName);
                 TempData["Login"] = "Chào mừng " + HttpContext.Session.GetString("name");
                 List<CartDetail> cartDetails = cartDetailServices.GetAllCartDetail().Where(x => x.UserID == data.UserID).ToList();
-                string itemCount = cartDetails.Count().ToString();
-                HttpContext.Session.SetString("itemCount", itemCount);
+                HttpContext.Session.SetString("itemCount", cartDetails.Count().ToString());
                 return RedirectToAction("Index", "Home");
 
             }

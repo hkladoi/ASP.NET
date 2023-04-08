@@ -8,41 +8,36 @@
 
 <h1>BillManager</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.BillID)
+                BillCode
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BillCode)
+                Ngày tạo
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CreateDate)
+                Người dùng
             </th>
             <th>
-                User
+                Tên người nhận
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                SĐT
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Phone)
+                Địa chỉ
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Address)
+                Ghi chú
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                Tổng tiền
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TotalPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
+                Trạng thái
             </th>
             <th></th>
         </tr>
@@ -50,9 +45,6 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.BillID)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.BillCode)
             </td>
@@ -79,7 +71,7 @@
                 @Html.DisplayFor(modelItem => item.TotalPrice)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Status)
+                    @(item.Status == 0 ? "Thành công" : "Thất bại")
             </td>
             <td>
                     @Html.ActionLink("Chi tiết", "BillDetailsManager","Bill", new {  id=item.BillID  }) 

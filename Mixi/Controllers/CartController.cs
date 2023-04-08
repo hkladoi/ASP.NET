@@ -127,9 +127,8 @@ namespace Mixi.Controllers
                 cartDetailServices.CreateCartDetail(cartDetails);
             }
             List<CartDetail> cartDetail = cartDetailServices.GetAllCartDetail().Where(x => x.UserID == IdCart).ToList();
-            string itemCount = cartDetail.Count().ToString();
             HttpContext.Session.Remove("itemCount");
-            HttpContext.Session.SetString("itemCount", itemCount);
+            HttpContext.Session.SetString("itemCount", cartDetail.Count().ToString());
             return RedirectToAction("Details", "Home", new { id = product.ProductID });
         }
 
@@ -199,9 +198,8 @@ namespace Mixi.Controllers
                 cartDetailServices.DeleteCartDetail(id);
             }
             List<CartDetail> cartDetail = cartDetailServices.GetAllCartDetail().Where(x => x.UserID == IdCart).ToList();
-            string itemCount = cartDetail.Count().ToString();
             HttpContext.Session.Remove("itemCount");
-            HttpContext.Session.SetString("itemCount", itemCount);
+            HttpContext.Session.SetString("itemCount", cartDetail.Count().ToString());
             return RedirectToAction("ShowCartUser");
         }
         public IActionResult DeleteCartAll()
@@ -224,9 +222,8 @@ namespace Mixi.Controllers
                 }
             }
             List<CartDetail> cartDetail = cartDetailServices.GetAllCartDetail().Where(x => x.UserID == IdCart).ToList();
-            string itemCount = cartDetail.Count().ToString();
             HttpContext.Session.Remove("itemCount");
-            HttpContext.Session.SetString("itemCount", itemCount);
+            HttpContext.Session.SetString("itemCount", cartDetail.Count().ToString());
             return RedirectToAction("ShowCart");
         }
 

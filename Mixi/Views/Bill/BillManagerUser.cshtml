@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Mixi.Models.Bill>
+
+@{
+    ViewData["Title"] = "BillManagerUser";
+}
+
+<h1>BillManagerUser</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                BillCode
+            </th>
+            <th>
+                Ngày tạo
+            </th>
+            <th>
+                Người dùng
+            </th>
+            <th>
+                Tên người nhận
+            </th>
+            <th>
+                SĐT
+            </th>
+            <th>
+                Địa chỉ
+            </th>
+            <th>
+                Ghi chú
+            </th>
+            <th>
+                Tổng tiền
+            </th>
+            <th>
+                Trạng thái
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BillCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateDate)
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.User.FirstName)*@
+                    @item.User.FirstName @item.User.LastName
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                </td>
+                <td>
+                    @(item.Status == 0 ? "Thành công" : "Thất bại")
+                </td>
+                <td>
+                    @Html.ActionLink("Chi tiết", "BillDetailsManager","Bill", new {  id=item.BillID  })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -44,7 +44,7 @@ namespace Mixi.Services
 
         public List<BillDetail> GetAllBillDetail()
         {
-            return _dbContext.BillDetails.Include("product").ToList();
+            return _dbContext.BillDetails.Include(bd => bd.product).ThenInclude(c => c.Images).ToList();
         }
 
         public BillDetail GetBillDetailById(Guid id)

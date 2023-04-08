@@ -51,7 +51,7 @@ namespace Mixi.Controllers
                         Name = name,
                         Phone = phone,
                         Address = address,
-                        Description =description,
+                        Description = description,
                         Status = 0,
                         TotalPrice = listCartDetails.Sum(x => x.Product.SalePrice > 0 ? (x.Product.Price - x.Product.SalePrice) * x.Quantity : x.Product.Price * x.Quantity)
                     };
@@ -81,11 +81,18 @@ namespace Mixi.Controllers
             {
                 TempData["PayError"] = "Thanh toán không thành công";
             }
+            HttpContext.Session.Remove("itemCount");
             return RedirectToAction("ShowCartUser", "Cart");
         }
         public IActionResult BillManager()
         {
-            List<Bill> billList = (billServices.GetAllBill());
+            List<Bill> billList = billServices.GetAllBill();
+            return View(billList);
+        }
+        public IActionResult BillManagerUser()
+        {
+            var UserID = userServices.GetUserByName(HttpContext.Session.GetString("acc"))[0].UserID;
+            List<Bill> billList = billServices.GetAllBill().Where(c => c.UserID == UserID).ToList();
             return View(billList);
         }
         public IActionResult BillDetailsManager(Guid id)
