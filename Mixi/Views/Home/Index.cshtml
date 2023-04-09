@@ -64,12 +64,11 @@
                     <h5>
                         @if (item.SalePrice > 0)
                         {
-                            <del style="color:gray">@string.Format("{0:N0}đ", item.Price)</del> @string.Format("{0:N0}đ",item.Price- item.SalePrice);
+                            <del style="color:gray">@string.Format("{0:N0}đ", item.Price)</del> @string.Format("{0:N0}đ",item.Price- item.SalePrice)
                         }
                         else
                         {
                             @string.Format("{0:N0}đ", item.Price)
-                            ;
                         }
                     </h5> <br>
                 </div>
