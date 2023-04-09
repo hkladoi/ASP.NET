@@ -16,8 +16,7 @@ namespace Mixi.Services
         {
             try
             {
-                var product = context.Products.Find(p.ProductID);
-                if (product.SalePrice < p.Price)
+                if (p.SalePrice < p.Price)
                 {
                     p.ProductCode = GenerateProductCode();
                     context.Products.Add(p);

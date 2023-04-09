@@ -81,7 +81,7 @@
                                     <p class="label">NEW</p>
                                 }
                             </div>
-                            <img src="@item.Images.LinkImage" class="img-thumbnail" style="width:308px;height:406px">
+                            <img src="/Image/@item.Images.LinkImage" class="img-thumbnail" style="width:308px;height:406px">
                         </div>
                         <p style="margin-bottom:-5px">@item.Category.Name</p>
                         @Html.ActionLink(item.Name, "Details", new {  id=item.ProductID  }) <br>

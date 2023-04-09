@@ -158,7 +158,7 @@ namespace Mixi.Controllers
             //var lists = mixiDbContext.Products.Take(8).Include("Size").Include("Color").Include("Category").Include("Images").ToList();
             //return View(lists);
         }
-        public IActionResult ShowlistProduct()
+        public IActionResult ShowlistProduct(string sreach)
         {
 
             var lists = mixiDbContext.Products.Include("Size").Include("Color").Include("Category").Include("Images").ToList();
@@ -166,7 +166,15 @@ namespace Mixi.Controllers
             var role = HttpContext.Session.GetString("role");
             if (acc != null && role == "admin")
             {
-                return View(lists);
+                if (sreach != null)
+                {
+                    var list = mixiDbContext.Products.Include("Size").Include("Color").Include("Category").Include("Images").Where(c => c.Name.ToUpper().Contains(sreach.ToUpper()));
+                    return View(list);
+                }
+                else
+                {
+                    return View(lists);
+                }
             }
             else
             {

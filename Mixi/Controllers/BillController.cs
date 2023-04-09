@@ -95,10 +95,18 @@ namespace Mixi.Controllers
                 return RedirectToAction("ShowCart", "Cart");
             }
         }
-        public IActionResult BillManager()
+        public IActionResult BillManager(string sreach)
         {
             List<Bill> billList = billServices.GetAllBill();
-            return View(billList);
+            if (sreach != null)
+            {
+                var list = billList.Where(c => string.Concat(c.User.FirstName, c.User.LastName).ToUpper().Contains(sreach.ToUpper()));
+                return View(list);
+            }
+            else
+            {
+                return View(billList);
+            }
         }
         public IActionResult BillManagerUser()
         {

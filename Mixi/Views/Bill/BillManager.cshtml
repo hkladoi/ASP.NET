@@ -8,7 +8,12 @@
 
 <h1>BillManager</h1>
 
-
+<form class="d-flex" role="search">
+    <div style="display:flex">
+        <button class="logo" style="border:none;background-color:white" type="submit"><img src="~/Image/timkiem.png" alt="" width="30" height="24"></button>
+        @Html.TextBox("sreach","",new{@class="form-control me-2",@type="sreach"})
+    </div>
+</form>
 <table class="table">
     <thead>
         <tr>

@@ -37,42 +37,44 @@ namespace Mixi.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Image p, [Bind] IFormFile formFile)//thực hiện tạo mới
+        public IActionResult Create(Image p, List<IFormFile> formFile)//thực hiện tạo mới
         {
-            for (int i = 0; i < Request.Form.Files.Count; i++)
+            int i = 0;
+            foreach (var file in formFile)
             {
-                if (formFile != null && formFile.Length > 0)
+                if (file != null && file.Length > 0)
                 {
                     var path = Path.Combine(
-                        Directory.GetCurrentDirectory(), "wwwroot", "image", formFile.FileName
+                        Directory.GetCurrentDirectory(), "wwwroot", "Image", file.FileName
                     );
                     using (var stream = new FileStream(path, FileMode.Create))
                     {
-                        formFile.CopyTo(stream);
+                        file.CopyTo(stream);
                     }
-
                     switch (i)
                     {
                         case 0:
-                            p.LinkImage = formFile.FileName;
+                            p.LinkImage = file.FileName;
                             break;
                         case 1:
-                            p.LinkImage1 = formFile.FileName;
+                            p.LinkImage1 = file.FileName;
                             break;
                         case 2:
-                            p.LinkImage2 = formFile.FileName;
+                            p.LinkImage2 = file.FileName;
                             break;
                         case 3:
-                            p.LinkImage3 = formFile.FileName;
+                            p.LinkImage3 = file.FileName;
                             break;
                         case 4:
-                            p.LinkImage4 = formFile.FileName;
+                            p.LinkImage4 = file.FileName;
                             break;
                         default:
                             break;
                     }
+                    i++;
                 }
             }
+
 
 
             if (imageServices.CreateImage(p))

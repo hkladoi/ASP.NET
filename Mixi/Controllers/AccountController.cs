@@ -74,6 +74,7 @@ namespace Mixi.Controllers
                                     existingProduct.Quantity = item.AvailableQuantity;
                                 }
                                 cartDetailServices.UpdateCartDetail(existingProduct);
+                                SessionServices.RemoveSession(HttpContext.Session, "Cart");
                             }
                         }
                         else
