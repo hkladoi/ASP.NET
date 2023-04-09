@@ -32,20 +32,19 @@ namespace Mixi.Controllers
             mixiDbContext = new MixiDbContext();
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string sreach)
         {
-            List<Category> Category = categoryServices.GetAllCategory();
-            var lists = mixiDbContext.Products.Take(8).Include("Size").Include("Color").Include("Category").Include("Images").ToList();
-            //string acc = HttpContext.Session.GetString("acc");
-            //if (acc != null)
-            //{
-            //    return View(lists);
-            //}
-            //else
-            //{
-            //    return RedirectToAction("Login", "Account");
-            //}
-            return View(lists);
+            if (sreach != null)
+            {
+                var lists = mixiDbContext.Products.Include("Size").Include("Color").Include("Category").Include("Images").Where(c => c.Name.ToUpper().Contains(sreach.ToUpper()));
+                return View(lists);
+            }
+            else
+            {
+                var lists = mixiDbContext.Products.Take(8).Include("Size").Include("Color").Include("Category").Include("Images").ToList();
+                return View(lists);
+            }
+
         }
 
         public IActionResult Privacy()

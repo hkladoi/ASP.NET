@@ -7,6 +7,7 @@ using Mixi.Models;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Web;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 
 namespace Mixi.Controllers
 {
@@ -18,6 +19,7 @@ namespace Mixi.Controllers
         private readonly IRoleServices roleServices;
         private readonly ICartServices cartServices;
         private readonly ICartDetailServices cartDetailServices;
+        private readonly IProductServices productServices;
         public AccountController(ILogger<AccountController> logger)
         {
             _logger = logger;
@@ -26,13 +28,14 @@ namespace Mixi.Controllers
             roleServices = new RoleServices();
             cartServices = new CartServices();
             cartDetailServices = new CartDetailServices();
+            productServices = new ProductServices();
         }
         public IActionResult Login()
         {
             return View();
         }
         [HttpPost]
-        public ActionResult Login(string account, string password, Guid id)
+        public ActionResult Login(string account, string password)
         {
             //if (ModelState.IsValid)
             //{
@@ -44,8 +47,51 @@ namespace Mixi.Controllers
                 HttpContext.Session.SetString("role", data.Roles.RoleName);
                 HttpContext.Session.SetString("name", data.FirstName + " " + data.LastName);
                 TempData["Login"] = "Chào mừng " + HttpContext.Session.GetString("name");
-                List<CartDetail> cartDetails = cartDetailServices.GetAllCartDetail().Where(x => x.UserID == data.UserID).ToList();
-                HttpContext.Session.SetString("itemCount", cartDetails.Count().ToString());
+                var cart = SessionServices.GetObjFomSession(HttpContext.Session, "Cart");
+                if (cart.Count == 0)
+                {
+                    List<CartDetail> cartDetails = cartDetailServices.GetAllCartDetail().Where(x => x.UserID == data.UserID).ToList();
+                    HttpContext.Session.SetString("itemCount", cartDetails.Count().ToString());
+                }
+                else
+                {
+                    foreach (var item in cart)
+                    {
+                        var product = productServices.GetProductById(item.ProductID);
+                        var existingProduct = cartDetailServices.GetAllCartDetail().FirstOrDefault(x => x.ProductID == item.ProductID && x.UserID == data.UserID);
+                        if (existingProduct != null)
+                        {
+                            if (existingProduct != null)
+                            {
+                                //Kiểm tra số lượng vs số lượng tồn
+                                if (existingProduct.Quantity + item.Quantity <= product.AvailableQuantity)
+                                {
+                                    // Nếu sản phẩm đã có trong giỏ hàng thì tăng số lượng lên 1
+                                    existingProduct.Quantity += item.Quantity;
+                                }
+                                else
+                                {
+                                    existingProduct.Quantity = item.AvailableQuantity;
+                                }
+                                cartDetailServices.UpdateCartDetail(existingProduct);
+                            }
+                        }
+                        else
+                        {
+                            CartDetail cartDetail = new CartDetail()
+                            {
+                                CartID = new Guid(),
+                                UserID = data.UserID,
+                                ProductID = item.ProductID,
+                                Quantity = item.Quantity,
+                            };
+                            cartDetailServices.CreateCartDetail(cartDetail);
+                            SessionServices.RemoveSession(HttpContext.Session, "Cart");
+                        }
+                    };
+                    List<CartDetail> cartDetails = cartDetailServices.GetAllCartDetail().Where(x => x.UserID == data.UserID).ToList();
+                    HttpContext.Session.SetString("itemCount", cartDetails.Count().ToString());
+                }
                 return RedirectToAction("Index", "Home");
 
             }
@@ -76,6 +122,12 @@ namespace Mixi.Controllers
             if (email == null && acc == null)
             {
                 userServices.Createkach(_user);
+                Cart cart = new Cart()
+                {
+                    UserID = _user.UserID,
+                    Description = "",
+                };
+                cartServices.CreateCart(cart);
                 return RedirectToAction("Login");
             }
             else

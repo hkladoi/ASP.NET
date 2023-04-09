@@ -37,8 +37,44 @@ namespace Mixi.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Image p)//thực hiện tạo mới
+        public IActionResult Create(Image p, [Bind] IFormFile formFile)//thực hiện tạo mới
         {
+            for (int i = 0; i < Request.Form.Files.Count; i++)
+            {
+                if (formFile != null && formFile.Length > 0)
+                {
+                    var path = Path.Combine(
+                        Directory.GetCurrentDirectory(), "wwwroot", "image", formFile.FileName
+                    );
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        formFile.CopyTo(stream);
+                    }
+
+                    switch (i)
+                    {
+                        case 0:
+                            p.LinkImage = formFile.FileName;
+                            break;
+                        case 1:
+                            p.LinkImage1 = formFile.FileName;
+                            break;
+                        case 2:
+                            p.LinkImage2 = formFile.FileName;
+                            break;
+                        case 3:
+                            p.LinkImage3 = formFile.FileName;
+                            break;
+                        case 4:
+                            p.LinkImage4 = formFile.FileName;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+
+
             if (imageServices.CreateImage(p))
             {
                 return RedirectToAction("ShowlistImage");

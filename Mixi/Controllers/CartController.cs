@@ -127,7 +127,6 @@ namespace Mixi.Controllers
                 cartDetailServices.CreateCartDetail(cartDetails);
             }
             List<CartDetail> cartDetail = cartDetailServices.GetAllCartDetail().Where(x => x.UserID == IdCart).ToList();
-            HttpContext.Session.Remove("itemCount");
             HttpContext.Session.SetString("itemCount", cartDetail.Count().ToString());
             return RedirectToAction("Details", "Home", new { id = product.ProductID });
         }
@@ -183,50 +182,41 @@ namespace Mixi.Controllers
         }
         public IActionResult DeleteCart(Guid id)
         {
+            var products = SessionServices.GetObjFomSession(HttpContext.Session, "Cart");
+            var x = products.FirstOrDefault(c => c.ProductID == id);
+            products.Remove(x);
+            SessionServices.SetObjToSession(HttpContext.Session, "Cart", products);
+            return RedirectToAction("ShowCart");
+        }
+        public IActionResult DeleteCartUser(Guid id)
+        {
             var acc = HttpContext.Session.GetString("acc");
-            var IdCart = userServices.GetAllUser().FirstOrDefault(c => c.Account == acc).UserID;
-            if (HttpContext.Session.GetString("acc") == null)
-            {
-                var products = SessionServices.GetObjFomSession(HttpContext.Session, "Cart");
-                var x = products.FirstOrDefault(c => c.ProductID == id);
-                products.Remove(x);
-                SessionServices.SetObjToSession(HttpContext.Session, "Cart", products);
-
-            }
-            else
-            {
-                cartDetailServices.DeleteCartDetail(id);
-            }
+            cartDetailServices.DeleteCartDetail(id);
+            var IdCart = userServices.GetAllUser().Find(c => c.Account == acc).UserID;
             List<CartDetail> cartDetail = cartDetailServices.GetAllCartDetail().Where(x => x.UserID == IdCart).ToList();
-            HttpContext.Session.Remove("itemCount");
             HttpContext.Session.SetString("itemCount", cartDetail.Count().ToString());
             return RedirectToAction("ShowCartUser");
         }
         public IActionResult DeleteCartAll()
         {
+            var products = SessionServices.GetObjFomSession(HttpContext.Session, "Cart");
+            products.Clear();
+            SessionServices.SetObjToSession(HttpContext.Session, "Cart", products);
+            return RedirectToAction("ShowCart");
+        }
+        public IActionResult DeleteCartAllUser()
+        {
             var acc = HttpContext.Session.GetString("acc");
             var IdCart = userServices.GetAllUser().FirstOrDefault(c => c.Account == acc).UserID;
-            if (HttpContext.Session.GetString("acc") == null)
+            List<CartDetail> cartDetails = cartDetailServices.GetAllCartDetail().Where(x => x.UserID == IdCart).ToList();
+            foreach (var item in cartDetails)
             {
-                var products = SessionServices.GetObjFomSession(HttpContext.Session, "Cart");
-                products.Clear();
-                SessionServices.SetObjToSession(HttpContext.Session, "Cart", products);
-
-            }
-            else
-            {
-                List<CartDetail> cartDetails = cartDetailServices.GetAllCartDetail().Where(x => x.UserID == IdCart).ToList();
-                foreach (var item in cartDetails)
-                {
-                    cartDetailServices.DeleteCartDetail(item.CartID);
-                }
+                cartDetailServices.DeleteCartDetail(item.CartID);
             }
             List<CartDetail> cartDetail = cartDetailServices.GetAllCartDetail().Where(x => x.UserID == IdCart).ToList();
-            HttpContext.Session.Remove("itemCount");
             HttpContext.Session.SetString("itemCount", cartDetail.Count().ToString());
             return RedirectToAction("ShowCart");
         }
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

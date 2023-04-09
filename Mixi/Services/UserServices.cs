@@ -30,12 +30,8 @@ namespace Mixi.Services
 
             try
             {
-                var user = _dbContext.Users.Find(u.UserID);
-                if (user.Email == u.Email)
-                {
-                    return false;
-                }
-                else if (user.Account == u.Account)
+
+                if (GetAllUser().FirstOrDefault(x => x.Email == u.Email && x.Account == u.Account) != null)
                 {
                     return false;
                 }

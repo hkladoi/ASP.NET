@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Mixi.Models;
 using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Mixi.Controllers
 {

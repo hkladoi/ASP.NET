@@ -43,5 +43,9 @@ namespace Mixi.Services
             session.Remove("cartDetails");
             SetObjToSession(session, "cartDetails", cartDetails);
         }
+        public static void RemoveSession(ISession session, string key)
+        {
+            session.Remove(key);
+        }
     }
 }

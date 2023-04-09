@@ -33,9 +33,9 @@
         <div class="col-4" style="text-align: left; padding-top: 20px; padding-bottom: 20px;">
             <a  style="text-decoration: none; color: black; font-size: 15px;" asp-area="" asp-controller="Home" asp-action="Index">
                 TRANG CHỦ /
-                <a style="text-decoration: none; color: black; font-size: 15px;">
-                    @Html.DisplayFor(model => model.Category.Name)
-                </a>
+                
+                    @Html.DisplayFor(model => model.Category.Name,new{@style="text-decoration: none; color: black; font-size: 15px;"})
+                
             </a>
         </div>
     </div>
@@ -49,24 +49,24 @@
                         HOT
                     </p>
                 </div>
-                <img src="@Html.DisplayFor(model => model.Images.LinkImage)" alt="" width="484px" height="732px">
+                <img src="/Image/@Model.Images.LinkImage" alt="" style="width:484px;height:732px" >
             </div>
             <div class="thumbnail_images">
                 <ul id="thumbnail">
                     <li>
-                        <img src="@Html.DisplayFor(model => model.Images.LinkImage)" width="70">
+                        <img src="/Image/@Model.Images.LinkImage" width="70">
                     </li>
                     <li>
-                        <img src="@Html.DisplayFor(model => model.Images.LinkImage)" width="70">
+                        <img src="/Image/@Model.Images.LinkImage1" width="70">
                     </li>
                     <li>
-                        <img src="@Html.DisplayFor(model => model.Images.LinkImage)" width="70">
+                        <img src="/Image/@Model.Images.LinkImage2" width="70">
                     </li>
                     <li>
-                        <img src="@Html.DisplayFor(model => model.Images.LinkImage)" width="70">
+                        <img src="/Image/@Model.Images.LinkImage3" width="70">
                     </li>
                     <li>
-                        <img src="@Html.DisplayFor(model => model.Images.LinkImage)" width="70">
+                        <img src="/Image/@Model.Images.LinkImage4" width="70">
                     </li>
                 </ul>
             </div>
@@ -103,7 +103,7 @@
                 <form method="post" asp-action="AddToCart" asp-controller="Cart">
                     <input type="hidden" name="ProductID" value="@Model.ProductID" />
                     <div class="d-flex flex-row" style="display:inline-flex">
-                        <p style="height:36,8px">Số lượng </p>
+                        <p style="height:36.8px">Số lượng </p>
                         <button class="btn btn-link px-2"
                                 onclick="decreaseQuantity()">
                             <i class="fas fa-minus"></i>
@@ -129,7 +129,7 @@
                 <form method="post" asp-action="AddToCartUser" asp-controller="Cart">
                     <input type="hidden" name="ProductID" value="@Model.ProductID" />
                     <div class="d-flex flex-row" style="display:inline-flex">
-                        <p style="height:36,8px">Số lượng </p>
+                        <p style="height:36.8px">Số lượng </p>
                         <button class="btn btn-link px-2"
                                 onclick="decreaseQuantity()">
                             <i class="fas fa-minus"></i>
@@ -201,7 +201,7 @@
                                 </div>
                                 <div class="col-lg-8"
                                      style="text-align: left; margin-top: -30px; margin-left: -130px;">
-                                    <img src="image/stars3.png" alt="" width="100px">
+                                    <img src="image/stars3.png" alt="" style="width:100px">
                                     <p style="margin-top: -30px; font-size: 15px;">
                                         <strong>
                                             Nguyễn Khắc Vang -
@@ -217,7 +217,7 @@
                                 </div>
                                 <div class="col-lg-8"
                                      style="text-align: left; margin-top: -30px; margin-left: -130px;">
-                                    <img src="image/stars3.png" alt="" width="100px">
+                                    <img src="image/stars3.png" alt="" style="width:100px">
                                     <p style="margin-top: -30px; font-size: 15px;">
                                         <strong>
                                             Dương Đức Hiếu -
@@ -233,7 +233,7 @@
                                 </div>
                                 <div class="col-lg-8"
                                      style="text-align: left; margin-top: -30px; margin-left: -130px;">
-                                    <img src="image/stars3.png" alt="" width="100px">
+                                    <img src="image/stars3.png" alt="" style="width:100px">
                                     <p style="margin-top: -30px; font-size: 15px;">
                                         <strong>
                                             Đoàn Danh Trọng -
@@ -252,7 +252,7 @@
                                 </div>
                                 <div class="col-lg-8"
                                      style="text-align: left; margin-top: -30px; margin-left: -130px;">
-                                    <img src="image/stars3.png" alt="" width="100px">
+                                    <img src="image/stars3.png" alt="" style="width:100px">
                                     <p style="margin-top: -30px; font-size: 15px;">
                                         <strong>
                                             Hoàng Trung Mạnh -
@@ -268,7 +268,7 @@
                                 </div>
                                 <div class="col-lg-8"
                                      style="text-align: left; margin-top: -30px; margin-left: -130px;">
-                                    <img src="image/stars3.png" alt="" width="100px">
+                                    <img src="image/stars3.png" alt="" style="width:100px">
                                     <p style="margin-top: -30px; font-size: 15px;">
                                         <strong>Trung Hiếu - </strong> 20
                                         Tháng Mười Hai, 2022
@@ -283,7 +283,7 @@
                                 </div>
                                 <div class="col-lg-8"
                                      style="text-align: left; margin-top: -30px; margin-left: -130px;">
-                                    <img src="image/stars3.png" alt="" width="100px">
+                                    <img src="image/stars3.png" alt="" style="width:100px">
                                     <p style="margin-top: -30px; font-size: 15px;">
                                         <strong>Phương Chang - </strong>
                                         20 Tháng Mười Hai, 2022
@@ -298,7 +298,7 @@
                                 </div>
                                 <div class="col-lg-8"
                                      style="text-align: left; margin-top: -30px; margin-left: -130px;">
-                                    <img src="image/stars3.png" alt="" width="100px">
+                                    <img src="image/stars3.png" alt="" style="width:100px">
                                     <p style="margin-top: -30px; font-size: 15px;">
                                         <strong>Trung Kiên - </strong> 12
                                         Tháng Mười Hai, 2022
@@ -313,7 +313,7 @@
                                 </div>
                                 <div class="col-lg-8"
                                      style="text-align: left; margin-top: -30px; margin-left: -130px;">
-                                    <img src="image/stars3.png" alt="" width="100px">
+                                    <img src="image/stars3.png" alt="" style="width:100px">
                                     <p style="margin-top: -30px; font-size: 15px;">
                                         <strong>
                                             Nguyễn Khắc Tiệp -
@@ -331,8 +331,8 @@
                              style="border: 2px solid rgb(3, 182, 242); margin-top: 20px; margin-bottom: 20px; text-align: left; padding: 20px;">
                             <h2 style="font-weight: bold; font-size: 25px;">Thêm đánh giá</h2>
                             <h3 style="font-weight: bold; font-size: 15px;">Đánh giá của bạn *</h3>
-                            <img src="image/stars3.png" alt="" width="30%"
-                                 style="margin-top: -50px;margin-bottom: -40px;">
+                            <img src="image/stars3.png" alt="" 
+                                 style="margin-top: -50px;margin-bottom: -40px;width:30%">
                             <h3 style="font-weight: bold; font-size: 15px;">nhận xét của bạn *</h3>
                             <textarea id="typeText" class="form-control form-control-lg" rows="4"> </textarea><br>
                             <div class="row">
@@ -361,7 +361,7 @@
                 <img src="image/sp6.png" class="img-thumbnail" alt="...">
                 <p>ĐỒ LƯU NIỆM MIXI</p>
                 <a class="text" href="#">Bộ Ghép Hình Mixi - Mixi Block SS6</a>
-                <img src="image/stars4.png" alt="" width="100px">
+                <img src="image/stars4.png" alt="" style="width:100px">
                 <h5>370,000₫</h5>
             </div>
             <div class="col-3">
@@ -374,14 +374,14 @@
                 </div>
                 <p>ĐỒ LƯU NIỆM MIXI</p>
                 <a class="text" href="#">Cốc Giữ Nhiệt Mixi <br></a>
-                <img src="image/stars4.png" alt="" width="100px">
+                <img src="image/stars4.png" alt="" style="width:100px">
                 <h5>199,000₫</h5>
             </div>
             <div class="col-3">
                 <img src="image/sp9.png" class="img-thumbnail" alt="...">
                 <p>ĐỒ LƯU NIỆM MIXI</p>
                 <a class="text" href="#">Bộ Ghép Hình Mixi - Mixi Block SS2 <br></a>
-                <img src="image/stars4.png" alt="" width="100px">
+                <img src="image/stars4.png" alt="" style="width:100px">
                 <h5>300,000₫</h5>
             </div>
             <div class="col-3">
@@ -394,7 +394,7 @@
                 </div>
                 <p>ĐỒ LƯU NIỆM MIXI</p>
                 <a class="text" href="#">Ví Handmade Mixi Hàng Limited Edition <br></a>
-                <img src="image/stars4.png" alt="" width="100px">
+                <img src="image/stars4.png" alt="" style="width:100px">
                 <h5><del>1,500,000₫</del> 830,000₫</h5>
             </div>
         </div>

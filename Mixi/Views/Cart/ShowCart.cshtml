@@ -6,17 +6,28 @@
     ViewBag.ShowBanner = false;
     var totalPrice =(decimal)ViewData["totalPrice"];
 }
-@*@if (TempData["quantityCart"] != null)
+@if (TempData["Pay"] != null)
 {
     <script>
         Swal.fire({
-            title: '@TempData["quantityCart"]',
+            title: '@TempData["Pay"]',
             icon: 'error',
             showConfirmButton: false,
             timer: 1500
         })
     </script>
-}*@
+}
+@if (TempData["login"] != null)
+{
+    <script>
+        Swal.fire({
+            title: '@TempData["login"]',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    </script>
+}
 <section class="h-100 h-custom">
     <div class="container h-100 py-5">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -155,36 +166,36 @@
                             </div>
                             <div class="col-md-6 col-lg-4 col-xl-6">
                                 <div class="row">
-                                    <div class="col-12 col-xl-6">
-                                        <div class="form-outline mb-4 mb-xl-5">
-                                            <input type="text" id="typeName" class="form-control form-control-lg"
-                                                   siez="17" placeholder="Họ và Tên" />
-                                        </div>
+                                            <div class="col-12 col-xl-6">
+                                                <div class="form-outline mb-4 mb-xl-5">
+                                                    <input type="text" name="name" class="form-control form-control-lg"
+                                                           siez="17" placeholder="Họ và Tên" required />
+                                                </div>
 
-                                        <div class="form-outline mb-4 mb-xl-5">
-                                            <input type="text" id="typeExp" class="form-control form-control-lg"
-                                                   placeholder="SĐT" size="7" minlength="10" maxlength="10" />
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-xl-6">
-                                        <div class="form-outline mb-4 mb-xl-5">
-                                            <input type="email" id="typeText" class="form-control form-control-lg"
-                                                   siez="17" placeholder="Email" />
-                                        </div>
+                                                <div class="form-outline mb-4 mb-xl-5">
+                                                    <input type="number" name="phone" class="form-control form-control-lg"
+                                                           placeholder="SĐT" size="7" minlength="10" maxlength="10" required />
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-xl-6">
+                                                <div class="form-outline mb-4 mb-xl-5">
+                                                    <input type="email" id="typeText" class="form-control form-control-lg"
+                                                           siez="17" placeholder="Email" />
+                                                </div>
 
-                                        <div class="form-outline mb-4 mb-xl-5">
-                                            <input type="text" id="typeText"
-                                                   class="form-control form-control-lg"
-                                                   placeholder="Địa Chỉ" size="17" />
+                                                <div class="form-outline mb-4 mb-xl-5">
+                                                    <input type="text" name="address"
+                                                           class="form-control form-control-lg"
+                                                           placeholder="Địa Chỉ" size="17" required />
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-xl-12">
+                                                <div class="form-outline mb-8 mb-xl-10">
+                                                    <input type="text" name="description" class="form-control form-control-lg"
+                                                           siez="17" placeholder="Ghi chú" style="height: 60px;" required />
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-12 col-xl-12">
-                                        <div class="form-outline mb-8 mb-xl-10">
-                                            <input type="text" id="typeText" class="form-control form-control-lg"
-                                                   siez="17" placeholder="Ghi chú" style="height: 60px;" />
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                             <div class="col-lg-4 col-xl-3">
                                 <div class="d-flex justify-content-between" style="font-weight: 500;">

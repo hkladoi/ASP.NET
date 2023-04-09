@@ -46,11 +46,13 @@
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Abount">GIỚI THIỆU</a>
                         </li>
                     </ul>
-                    <a class="navbar-brand" href="#" style="padding-left: 50px;">
-                        <img src="~/Image/timkiem.png" alt="" width="30" height="24" type="submit">
-                    </a>
+                    
                     <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <a class="navbar-brand" style="padding-left: 50px;">
+                            <button class="logo" style="border:none;background-color:white" type="submit"><img src="~/Image/timkiem.png" alt="" width="30" height="24"></button>
+                        </a>
+                        @*<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="sreach">*@
+                        @Html.TextBox("sreach","",new{@class="form-control me-2",@type="sreach"})
                     </form>
                 </div>
                 <ul class="nav justify-content-end">
@@ -106,7 +108,7 @@
             @RenderBody()
         </main>
     </div>
-
+    
     <footer class="border-top footer text-muted">
         <div class="card">
             <div class="card-body">
@@ -162,7 +164,7 @@
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    @*<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/mixi.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
     

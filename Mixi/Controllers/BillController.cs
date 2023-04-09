@@ -31,58 +31,69 @@ namespace Mixi.Controllers
         }
         public IActionResult Pay(string name, string phone, string address, string description)
         {
-            var UserID = userServices.GetUserByName(HttpContext.Session.GetString("acc"))[0].UserID;
-            var listCartDetails = cartDetailServices.GetAllCartDetail().Where(c => c.UserID == UserID);
-            var Chuoi = "";
-            var outOfStockProducts = listCartDetails
-                             .Where(item => item.Quantity > productServices.GetProductById(item.ProductID).AvailableQuantity)
-                             .Select(item => '"' + productServices.GetProductById(item.ProductID).Name + " chỉ còn " + productServices.GetProductById(item.ProductID).AvailableQuantity + '"');
-            Chuoi = string.Join(" ", outOfStockProducts);
+            var acc = HttpContext.Session.GetString("acc");
 
-            if (listCartDetails.Any())
+
+            if (acc != null)
             {
-                if (Chuoi == "")
+                var UserID = userServices.GetUserByName(acc)[0].UserID;
+                var listCartDetails = cartDetailServices.GetAllCartDetail().Where(c => c.UserID == UserID);
+                var Chuoi = "";
+                var outOfStockProducts = listCartDetails
+                                 .Where(item => item.Quantity > productServices.GetProductById(item.ProductID).AvailableQuantity)
+                                 .Select(item => '"' + productServices.GetProductById(item.ProductID).Name + " chỉ còn " + productServices.GetProductById(item.ProductID).AvailableQuantity + '"');
+                Chuoi = string.Join(" ", outOfStockProducts);
+                if (listCartDetails.Any())
                 {
-                    var bill = new Bill()
+                    if (Chuoi == "")
                     {
-                        BillID = new Guid(),
-                        CreateDate = DateTime.Now,
-                        UserID = UserID,
-                        Name = name,
-                        Phone = phone,
-                        Address = address,
-                        Description = description,
-                        Status = 0,
-                        TotalPrice = listCartDetails.Sum(x => x.Product.SalePrice > 0 ? (x.Product.Price - x.Product.SalePrice) * x.Quantity : x.Product.Price * x.Quantity)
-                    };
-                    billServices.CreateBill(bill);
-                    foreach (var item in listCartDetails)
-                    {
-                        billDetailServices.CreateBillDetail(new BillDetail()
+                        var bill = new Bill()
                         {
-                            ID = new Guid(),
-                            BillID = bill.BillID,
-                            ProductID = item.ProductID,
-                            Quantity = item.Quantity,
-                            Price = item.Product.Price
-                        });
-                        cartDetailServices.DeleteCartDetail(item.CartID);
-                        var product = productServices.GetProductById(item.ProductID);
-                        product.AvailableQuantity -= item.Quantity;
-                        productServices.UpdateProduct(product);
+                            BillID = new Guid(),
+                            CreateDate = DateTime.Now,
+                            UserID = UserID,
+                            Name = name,
+                            Phone = phone,
+                            Address = address,
+                            Description = description,
+                            Status = 0,
+                            TotalPrice = listCartDetails.Sum(x => x.Product.SalePrice > 0 ? (x.Product.Price - x.Product.SalePrice) * x.Quantity : x.Product.Price * x.Quantity)
+                        };
+                        billServices.CreateBill(bill);
+                        foreach (var item in listCartDetails)
+                        {
+                            billDetailServices.CreateBillDetail(new BillDetail()
+                            {
+                                ID = new Guid(),
+                                BillID = bill.BillID,
+                                ProductID = item.ProductID,
+                                Quantity = item.Quantity,
+                                Price = item.Product.Price
+                            });
+                            cartDetailServices.DeleteCartDetail(item.CartID);
+                            var product = productServices.GetProductById(item.ProductID);
+                            product.AvailableQuantity -= item.Quantity;
+                            productServices.UpdateProduct(product);
+                        }
+                    }
+                    else
+                    {
+                        TempData["QuantityError"] = "số lượng tồn của sản phẩm " + Chuoi;
                     }
                 }
                 else
                 {
-                    TempData["QuantityError"] = "số lượng tồn của sản phẩm " + Chuoi;
+                    TempData["PayError"] = "Thanh toán không thành công";
                 }
+                HttpContext.Session.Remove("itemCount");
+                TempData["PaySuccess"] = "Thanh toán thành công";
+                return RedirectToAction("ShowCartUser", "Cart");
             }
             else
             {
-                TempData["PayError"] = "Thanh toán không thành công";
+                TempData["Pay"] = "Bạn phải đăng nhập để thanh toán";
+                return RedirectToAction("ShowCart", "Cart");
             }
-            HttpContext.Session.Remove("itemCount");
-            return RedirectToAction("ShowCartUser", "Cart");
         }
         public IActionResult BillManager()
         {

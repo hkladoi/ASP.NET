@@ -22,25 +22,29 @@
                                         <div class="form-outline mb-4">
                                             <label asp-for="FirstName" class="control-label"></label>
                                             <input asp-for="FirstName" class="form-control form-control-lg" />
+                                            <span asp-validation-for="FirstName" class="text-danger"></span>
                                         </div>
                                         <div class="form-outline mb-4">
                                             <label asp-for="LastName" class="control-label"></label>
-                                            <input asp-for="LastName" class="form-control form-control-lg" />
+                                            <input asp-for="LastName" class="form-control form-control-lg"/>
+                                            <span asp-validation-for="LastName" class="text-danger"></span>
                                         </div>
                                         <div class="form-outline mb-4">
                                             <label asp-for="Address" class="control-label"></label>
                                             <input asp-for="Address" class="form-control form-control-lg" />
+                                            <span asp-validation-for="Address" class="text-danger"></span>
                                         </div>
                                         <div class="form-outline mb-4">
                                             <label asp-for="PhoneNumber" class="control-label"></label>
-                                            <input asp-for="PhoneNumber" class="form-control form-control-lg" />
+                                            <input asp-for="PhoneNumber" class="form-control form-control-lg" minlength="10" maxlength="10" type="number" />
+                                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         
                                         <div class="form-outline mb-4">
                                             <label asp-for="Email" class="control-label"></label>
-                                            <input asp-for="Email" class="form-control form-control-lg" />
+                                            <input asp-for="Email" class="form-control form-control-lg" type="email"/>
                                             @if (TempData["email"] != null)
                                             {
                                                 <div id="email" class="alert @TempData["AlertType"] hide" role="alert" style="color:red">
@@ -61,7 +65,7 @@
                                         </div>
                                         <div class="form-outline mb-4">
                                             <label asp-for="Password" class="control-label"></label>
-                                            <input asp-for="Password" class="form-control form-control-lg" />
+                                            <input asp-for="Password" class="form-control form-control-lg" type="password"/>
                                             <span asp-validation-for="Password" class="text-danger"></span>
                                         </div>
                                         <div class="form-outline mb-4">
