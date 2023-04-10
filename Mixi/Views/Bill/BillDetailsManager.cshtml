@@ -7,7 +7,18 @@
 }
 
 <h1>BillDetailsManager</h1>
+<p>
+    @if (Context.Session.GetString("acc")!=null)
+    {
+        <a asp-area="" asp-controller="Bill" asp-action="BillManagerUser" class="textasp" style="margin-right:10px">Back to list</a>
 
+    }else
+    {
+        <a asp-area="" asp-controller="Bill" asp-action="BillManager" class="textasp" style="margin-right:10px">Back to list</a>
+
+    }
+
+</p>
 
 <table class="table">
     <thead>

@@ -20,14 +20,14 @@ namespace Mixi.Services
             var JsonData = JsonConvert.SerializeObject(value);
             session.SetString(key, JsonData);
         }
-        public static List<CartDetail> GetObjFomSessionCart(ISession session, string key)
+        public static List<Product> GetObjFomSessionCart(ISession session, string key)
         {
             //lấy string
             var JsonData = session.GetString(key);
-            if (JsonData == null) return new List<CartDetail>();
+            if (JsonData == null) return new List<Product>();
             //chuyển dữ liệu
-            var cartDetails = JsonConvert.DeserializeObject<List<CartDetail>>(JsonData);
-            return cartDetails;
+            var Product = JsonConvert.DeserializeObject<List<Product>>(JsonData);
+            return Product;
         }
         public static void SetObjToSessionCart(ISession session, string key, object value)
         {

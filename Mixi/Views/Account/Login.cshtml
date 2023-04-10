@@ -4,11 +4,11 @@
     ViewBag.Title = "Login";
     ViewBag.ShowBanner = false;
 }
-@if (TempData["Wrong"] != null)
+@if (TempData["Register"] != null)
 {
     <script>
         Swal.fire({
-            title: '@TempData["Wrong"]',
+            title: '@TempData["Register"]',
             icon: 'error',
             showConfirmButton: false,
             timer: 1500
@@ -27,7 +27,7 @@
                     Vui lòng nhập Email của bạn.
                 </p>
                 <div class="form-outline">
-                    <input type="email" id="typeEmail" class="form-control my-3" />
+                    <input type="email" id="typeEmail" class="form-control my-3"/>
                     <label class="form-label" for="typeEmail" style="font-size: 20px;">Nhập email</label>
                 </div>
                 <a href="#" class="btn btn-primary w-100" style="font-size: 15px;">Thay đổi mật khẩu</a>
@@ -74,17 +74,23 @@
                         @using (Html.BeginForm("Login", "Account", FormMethod.Post))
                         {
                             <div class="form-outline form-dark mb-4">
-                                
-                                @Html.TextBoxFor(m => m.Account, "", new { @class = "form-control form-control-lg", @placeholder = "Account" })
+
+                                <input type="text" id="typeEmailX" name="Account" class="form-control form-control-lg" />
+                                <label class="form-label" for="typeEmailX" style="font-size: 20px;">Account</label>
 
                             </div>
                             <div class="form-outline form-dark mb-4">
-                                
-                                @Html.PasswordFor(m => m.Password, new { @class = "form-control form-control-lg", @placeholder = "Password" })
+
+                                <input type="password" name="Password" id="typePasswordX" class="form-control form-control-lg" />
+                                <label class="form-label" for="typePasswordX" style="font-size: 20px;">
+                                    Mật khẩu
+                                </label>
                             </div>
                             <p class="small mb-5 pb-lg-2">
                                 <a class="text-dark-50" href="#!" data-mdb-toggle="modal"
-                                   data-mdb-target="#exampleModal" style="font-size: 20px;">Quên mật khẩu?</a>
+                                   data-mdb-target="#exampleModal" style="font-size: 20px;">
+                                    Quên mật khẩu?
+                                </a>
                             </p>
                             <button class="btn btn-outline-danger btn-lg px-5" type="submit" name="submit">Đăng nhập</button>
                         }
@@ -99,5 +105,3 @@
         </div>
     </div>
 </section>
-
-

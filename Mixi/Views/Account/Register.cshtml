@@ -5,6 +5,17 @@
     ViewBag.Title = "Register";
     ViewBag.ShowBanner = false;
 }
+@if (TempData["Wrong"] != null)
+{
+    <script>
+        Swal.fire({
+            title: '@TempData["Wrong"]',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    </script>
+}
 <section class="vh-100 bg-image">
     <div class="mask d-flex align-items-center h-100 gradient-custom-3">
         <div class="container h-100">
@@ -36,7 +47,7 @@
                                         </div>
                                         <div class="form-outline mb-4">
                                             <label asp-for="PhoneNumber" class="control-label"></label>
-                                            <input asp-for="PhoneNumber" class="form-control form-control-lg" minlength="10" maxlength="10" type="number" />
+                                            <input asp-for="PhoneNumber" class="form-control form-control-lg" min="0" minlength="10" maxlength="10" type="number" />
                                             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                                         </div>
                                     </div>

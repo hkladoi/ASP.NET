@@ -109,11 +109,19 @@ namespace Mixi.Controllers
         }
         public IActionResult Delete(Guid id)
         {
+            var product = productServices.GetProductById(id);
+            SessionServices.SetObjToSession(HttpContext.Session, "delete", product);
             if (productServices.DeleteProduct(id))
             {
                 return RedirectToAction("ShowlistProduct");
             }
             else return BadRequest();
+        }
+        public IActionResult Rollback()
+        {
+            var product = SessionServices.GetObjFomSessionCart(HttpContext.Session, "delete");
+
+            return RedirectToAction("ShowlistProduct");
         }
         public ActionResult Show()
         {

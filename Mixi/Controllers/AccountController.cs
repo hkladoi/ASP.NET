@@ -129,7 +129,8 @@ namespace Mixi.Controllers
                     Description = "",
                 };
                 cartServices.CreateCart(cart);
-                return RedirectToAction("Login");
+                TempData["Register"] = "Đăng ký thành công";
+                return View();
             }
             else
             {
